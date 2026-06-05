@@ -1,0 +1,22 @@
+{
+  "id": "9d2c89f9-f0d2-48ce-b261-d74b951e1cae",
+  "name": "ThingsBoard Local",
+  "values": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "enabled": true
+    },
+    {
+      "key": "tenant_admin_user",
+      "value": "tenant@thingsboard.org",
+      "enabled": true
+    },
+    {
+      "key": "tenant_admin_password",
+      "value": "tenant",
+      "enabled": true
+    }
+  ],
+  "_postman_variable_scope": "environment"
+}

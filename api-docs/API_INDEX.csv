@@ -1,0 +1,566 @@
+Method,Path,Domain,Controller,OperationId,Auth,UI Usage
+POST,/api/auth/login,Authentication & Authorization,SecurityConfiguration,login,None,"auth.service.ts, oauth2.service.ts, admin.service.ts"
+GET,/api/noauth/mobile,Mobile App,MobileAppController,getLoginMobileInfo,"hasAnyAuthority('SYS_ADMIN','TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/mobile,Mobile App,MobileAppController,getUserMobileInfo,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",
+POST,/api/mobile/app,Mobile App,MobileAppController,saveMobileApp,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')","mobile-app.service.ts, mobile-application.service.ts"
+GET,/api/mobile/app,Mobile App,MobileAppController,getTenantMobileApps,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",mobile-app.service.ts
+GET,/api/mobile/app/{id},Mobile App,MobileAppController,getMobileAppById,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",mobile-app.service.ts
+DELETE,/api/mobile/app/{id},Mobile App,MobileAppController,deleteMobileApp,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",mobile-app.service.ts
+POST,/api/notification/target,Notifications,NotificationTargetController,saveNotificationTarget,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",notification.service.ts
+GET,/api/notification/target/{id},Notifications,NotificationTargetController,getNotificationTargetById,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",notification.service.ts
+POST,/api/notification/target/recipients,Notifications,NotificationTargetController,getRecipientsForNotificationTargetConfig,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",notification.service.ts
+GET,/api/notification/targets,Notifications,NotificationTargetController,getNotificationTargetsByIdsV1,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",
+GET,/api/notification/targets/list,Notifications,NotificationTargetController,getNotificationTargetsByIds,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')","entity.service.ts, notification.service.ts"
+GET,/api/notification/targets,Notifications,NotificationTargetController,getNotificationTargets,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')","entity.service.ts, notification.service.ts"
+GET,/api/notification/targets,Notifications,NotificationTargetController,getNotificationTargetsBySupportedNotificationTypeV1,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",
+GET,/api/notification/targets/notificationType/{notificationType},Notifications,NotificationTargetController,getNotificationTargetsBySupportedNotificationType,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",
+DELETE,/api/notification/target/{id},Notifications,NotificationTargetController,deleteNotificationTargetById,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",notification.service.ts
+GET,/api/resource/{resourceId}/download,Files / Uploads,TbResourceController,downloadResource,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')","device.service.ts, image.service.ts, resource.service.ts, ota-package.service.ts"
+GET,/api/resource/{resourceType}/{scope}/{key},Files / Uploads,TbResourceController,downloadResourceIfChanged,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",resource.service.ts
+GET,/api/resource/lwm2m/{resourceId}/download,Files / Uploads,TbResourceController,downloadLwm2mResourceIfChanged,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",
+GET,/api/resource/pkcs12/{resourceId}/download,Files / Uploads,TbResourceController,downloadPkcs12ResourceIfChanged,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",
+GET,/api/resource/jks/{resourceId}/download,Files / Uploads,TbResourceController,downloadJksResourceIfChanged,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/resource/js/{resourceId}/download,Files / Uploads,TbResourceController,downloadJsResourceIfChanged,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",
+GET,/api/resource/info/{resourceId},Files / Uploads,TbResourceController,getResourceInfoById,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",resource.service.ts
+GET,/api/resource/{resourceType}/{scope}/{key}/info,Files / Uploads,TbResourceController,getResourceInfo,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",resource.service.ts
+GET,/api/resource/{resourceId},Files / Uploads,TbResourceController,getResourceById,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')","resource.service.ts, device-profile.service.ts"
+POST,/api/resource,Files / Uploads,TbResourceController,saveResource,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",resource.service.ts
+POST,/api/resource/upload,Files / Uploads,TbResourceController,uploadResource,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",resource.service.ts
+PUT,/api/resource/{id}/data,Files / Uploads,TbResourceController,updateResourceData,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",resource.service.ts
+PUT,/api/resource/{id}/info,Files / Uploads,TbResourceController,updateResourceInfo,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",resource.service.ts
+GET,/api/resource,Files / Uploads,TbResourceController,getResources,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')","entity.service.ts, resource.service.ts"
+GET,/api/resource,Files / Uploads,TbResourceController,getSystemOrTenantResourcesByIdsV1,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",resource.service.ts
+GET,/api/resource/list,Files / Uploads,TbResourceController,getSystemOrTenantResourcesByIds,hasAnyAuthority('TENANT_ADMIN'),
+GET,/api/resource/tenant,Files / Uploads,TbResourceController,getTenantResources,hasAnyAuthority('TENANT_ADMIN'),resource.service.ts
+GET,/api/resource/lwm2m/page,Files / Uploads,TbResourceController,getLwm2mListObjectsPage,hasAnyAuthority('TENANT_ADMIN'),
+GET,/api/resource/lwm2m,Files / Uploads,TbResourceController,getLwm2mListObjects,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",
+DELETE,/api/resource/{resourceId},Files / Uploads,TbResourceController,deleteResource,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')","resource.service.ts, device-profile.service.ts"
+POST,/api/entitiesQuery/count,Internal / System APIs,EntityQueryController,countEntitiesByQuery,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+POST,/api/entitiesQuery/find,Internal / System APIs,EntityQueryController,findEntityDataByQuery,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",entity.service.ts
+POST,/api/alarmsQuery/find,Internal / System APIs,EntityQueryController,findAlarmDataByQuery,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",entity.service.ts
+POST,/api/alarmsQuery/count,Internal / System APIs,EntityQueryController,countAlarmsByQuery,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",
+POST,/api/entitiesQuery/find/keys,Internal / System APIs,EntityQueryController,findAvailableEntityKeysByQuery,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",
+POST,/api/v2/entitiesQuery/find/keys,Internal / System APIs,EntityQueryController,findAvailableEntityKeysByQueryV2,hasAnyAuthority('SYS_ADMIN'),
+POST,/api/edqs/system/request,Internal / System APIs,EntityQueryController,processSystemEdqsRequest,hasAnyAuthority('SYS_ADMIN'),
+GET,/api/edqs/state,Internal / System APIs,EntityQueryController,getEdqsState,hasAnyAuthority('SYS_ADMIN'),
+GET,/{entityType}/{entityId}/keys/attributes,Telemetry & Timeseries,TelemetryController,getAttributeKeys,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/{entityType}/{entityId}/keys/attributes/{scope},Telemetry & Timeseries,TelemetryController,getAttributeKeysByScope,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/{entityType}/{entityId}/values/attributes,Telemetry & Timeseries,TelemetryController,getAttributes,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/{entityType}/{entityId}/values/attributes/{scope},Telemetry & Timeseries,TelemetryController,getAttributesByScope,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/{entityType}/{entityId}/keys/timeseries,Telemetry & Timeseries,TelemetryController,getTimeseriesKeys,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/{entityType}/{entityId}/values/timeseries,Telemetry & Timeseries,TelemetryController,getLatestTimeseries,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/{entityType}/{entityId}/values/timeseries,Telemetry & Timeseries,TelemetryController,getTimeseries,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/{entityType}/{entityId}/values/timeseries/history,Telemetry & Timeseries,TelemetryController,getTimeseriesHistory,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+POST,/{deviceId}/{scope},Telemetry & Timeseries,TelemetryController,saveDeviceAttributes,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')","calculated-fields.service.ts, api-key.service.ts, resource.service.ts, queue.service.ts, notification.service.ts, component-descriptor.service.ts, edge.service.ts, widget.service.ts, rule-chain.service.ts, customer.service.ts, asset.service.ts, alarm.service.ts, usage-info.service.ts, dashboard.service.ts, domain.service.ts, user.service.ts, device.service.ts, tenant.service.ts, entity-view.service.ts, entity-relation.service.ts, asset-profile.service.ts, image.service.ts, ota-package.service.ts, device-profile.service.ts, tenant-profile.service.ts"
+POST,/{entityType}/{entityId}/{scope},Telemetry & Timeseries,TelemetryController,saveEntityAttributesV1,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')","trendz-settings.service.ts, audit-log.service.ts, user-settings.service.ts, calculated-fields.service.ts, entity.service.ts, api-key.service.ts, resource.service.ts, ai-model.service.ts, queue.service.ts, notification.service.ts, component-descriptor.service.ts, edge.service.ts, widget.service.ts, rule-chain.service.ts, customer.service.ts, asset.service.ts, alarm-rules.service.ts, alarm.service.ts, dashboard.service.ts, domain.service.ts, user.service.ts, device.service.ts, tenant.service.ts, entity-view.service.ts, mobile-app.service.ts, oauth2.service.ts, admin.service.ts, entity-relation.service.ts, asset-profile.service.ts, ui-settings.service.ts, auth.service.ts, image.service.ts, ota-package.service.ts, two-factor-authentication.service.ts, device-profile.service.ts, tenant-profile.service.ts"
+POST,/{entityType}/{entityId}/attributes/{scope},Telemetry & Timeseries,TelemetryController,saveEntityAttributesV2,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+POST,/{entityType}/{entityId}/timeseries/{scope},Telemetry & Timeseries,TelemetryController,saveEntityTelemetry,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+POST,/{entityType}/{entityId}/timeseries/{scope}/{ttl},Telemetry & Timeseries,TelemetryController,saveEntityTelemetryWithTTL,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+DELETE,/{entityType}/{entityId}/timeseries/delete,Telemetry & Timeseries,TelemetryController,deleteEntityTimeseries,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",attribute.service.ts
+DELETE,/{deviceId}/{scope},Telemetry & Timeseries,TelemetryController,deleteDeviceAttributes,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')","calculated-fields.service.ts, api-key.service.ts, resource.service.ts, queue.service.ts, notification.service.ts, component-descriptor.service.ts, edge.service.ts, widget.service.ts, rule-chain.service.ts, customer.service.ts, asset.service.ts, alarm.service.ts, usage-info.service.ts, dashboard.service.ts, domain.service.ts, user.service.ts, device.service.ts, tenant.service.ts, entity-view.service.ts, entity-relation.service.ts, asset-profile.service.ts, image.service.ts, ota-package.service.ts, device-profile.service.ts, tenant-profile.service.ts"
+DELETE,/{entityType}/{entityId}/{scope},Telemetry & Timeseries,TelemetryController,deleteEntityAttributes,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')","trendz-settings.service.ts, audit-log.service.ts, user-settings.service.ts, calculated-fields.service.ts, entity.service.ts, api-key.service.ts, resource.service.ts, ai-model.service.ts, queue.service.ts, notification.service.ts, component-descriptor.service.ts, edge.service.ts, widget.service.ts, rule-chain.service.ts, customer.service.ts, asset.service.ts, alarm-rules.service.ts, alarm.service.ts, dashboard.service.ts, domain.service.ts, user.service.ts, device.service.ts, tenant.service.ts, entity-view.service.ts, mobile-app.service.ts, oauth2.service.ts, admin.service.ts, entity-relation.service.ts, asset-profile.service.ts, ui-settings.service.ts, auth.service.ts, image.service.ts, ota-package.service.ts, two-factor-authentication.service.ts, device-profile.service.ts, tenant-profile.service.ts, attribute.service.ts"
+GET,/api/lwm2m/deviceProfile/bootstrap/{isBootstrapServer},OTA / Edge / Provisioning,Lwm2mController,getLwm2mBootstrapSecurityInfo,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",device-profile.service.ts
+POST,/api/lwm2m/device-credentials,OTA / Edge / Provisioning,Lwm2mController,saveLwm2mDeviceWithCredentials,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/entityView/{entityViewId},Internal / System APIs,EntityViewController,getEntityViewById,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",entity-view.service.ts
+GET,/api/entityView/info/{entityViewId},Internal / System APIs,EntityViewController,getEntityViewInfoById,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",entity-view.service.ts
+POST,/api/entityView,Internal / System APIs,EntityViewController,saveEntityView,hasAuthority('TENANT_ADMIN'),entity-view.service.ts
+DELETE,/api/entityView/{entityViewId},Internal / System APIs,EntityViewController,deleteEntityView,hasAuthority('TENANT_ADMIN'),entity-view.service.ts
+GET,/api/tenant/entityViews,Internal / System APIs,EntityViewController,getTenantEntityView,hasAuthority('TENANT_ADMIN'),"entity.service.ts, entity-view.service.ts"
+GET,/api/tenant/entityView,Internal / System APIs,EntityViewController,getTenantEntityViewByName,hasAuthority('TENANT_ADMIN'),
+POST,/api/customer/{customerId}/entityView/{entityViewId},Internal / System APIs,EntityViewController,assignEntityViewToCustomer,hasAuthority('TENANT_ADMIN'),entity-view.service.ts
+DELETE,/api/customer/entityView/{entityViewId},Internal / System APIs,EntityViewController,unassignEntityViewFromCustomer,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",entity-view.service.ts
+GET,/api/customer/{customerId}/entityViews,Internal / System APIs,EntityViewController,getCustomerEntityViews,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/customer/{customerId}/entityViewInfos,Internal / System APIs,EntityViewController,getCustomerEntityViewInfos,hasAuthority('TENANT_ADMIN'),"entity.service.ts, entity-view.service.ts"
+GET,/api/tenant/entityViews,Internal / System APIs,EntityViewController,getTenantEntityViews,hasAuthority('TENANT_ADMIN'),
+GET,/api/tenant/entityViewInfos,Internal / System APIs,EntityViewController,getTenantEntityViewInfos,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')","entity.service.ts, entity-view.service.ts"
+POST,/api/entityViews,Internal / System APIs,EntityViewController,findEntityViewsByQuery,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",entity-view.service.ts
+GET,/api/entityView/types,Internal / System APIs,EntityViewController,getEntityViewTypes,hasAuthority('TENANT_ADMIN'),"entity.service.ts, entity-view.service.ts"
+POST,/api/customer/public/entityView/{entityViewId},Internal / System APIs,EntityViewController,assignEntityViewToPublicCustomer,hasAuthority('TENANT_ADMIN'),entity-view.service.ts
+POST,/api/edge/{edgeId}/entityView/{entityViewId},Internal / System APIs,EntityViewController,assignEntityViewToEdge,hasAuthority('TENANT_ADMIN'),entity-view.service.ts
+DELETE,/api/edge/{edgeId}/entityView/{entityViewId},Internal / System APIs,EntityViewController,unassignEntityViewFromEdge,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",entity-view.service.ts
+GET,/api/edge/{edgeId}/entityViews,Internal / System APIs,EntityViewController,getEdgeEntityViews,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')","entity.service.ts, entity-view.service.ts"
+GET,/api/entityViews,Internal / System APIs,EntityViewController,getEntityViewsByIdsV1,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",entity-view.service.ts
+GET,/api/entityViews/list,Internal / System APIs,EntityViewController,getEntityViewsByIds,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",
+POST,/api/alarm/rule,Alarm Management,AlarmRuleController,saveAlarmRule,hasAuthority('TENANT_ADMIN'),alarm-rules.service.ts
+GET,/api/alarm/rule/{alarmRuleId},Alarm Management,AlarmRuleController,getAlarmRuleById,hasAuthority('TENANT_ADMIN'),alarm-rules.service.ts
+GET,/api/alarm/rules/{entityType}/{entityId},Alarm Management,AlarmRuleController,getAlarmRulesByEntityId,hasAuthority('TENANT_ADMIN'),alarm-rules.service.ts
+GET,/api/alarm/rules,Alarm Management,AlarmRuleController,getAlarmRules,hasAuthority('TENANT_ADMIN'),alarm-rules.service.ts
+GET,/api/alarm/rules/names,Alarm Management,AlarmRuleController,getAlarmRuleNames,hasAuthority('TENANT_ADMIN'),alarm-rules.service.ts
+DELETE,/api/alarm/rule/{alarmRuleId},Alarm Management,AlarmRuleController,deleteAlarmRule,hasAuthority('TENANT_ADMIN'),alarm-rules.service.ts
+GET,/api/alarm/rule/{alarmRuleId}/debug,Alarm Management,AlarmRuleController,getLatestAlarmRuleDebugEvent,hasAuthority('TENANT_ADMIN'),alarm-rules.service.ts
+POST,/api/alarm/rule/testScript,Alarm Management,AlarmRuleController,testAlarmRuleScript,hasAuthority('TENANT_ADMIN'),alarm-rules.service.ts
+GET,/api/events/{entityType}/{entityId}/{eventType},Internal / System APIs,EventController,getEventsByType,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",event.service.ts
+GET,/api/events/{entityType}/{entityId},Internal / System APIs,EventController,getEventsDeprecated,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",event.service.ts
+POST,/api/events/{entityType}/{entityId},Internal / System APIs,EventController,getEventsByFilter,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",event.service.ts
+POST,/api/events/{entityType}/{entityId}/clear,Internal / System APIs,EventController,clearEvents,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",event.service.ts
+GET,/api/mail/config/template,Admin / Settings,MailConfigTemplateController,getMailConfigTemplates,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",admin.service.ts
+GET,/.well-known/assetlinks.json,Admin / Settings,QrCodeSettingsController,getAssetLinks,None,
+GET,/.well-known/apple-app-site-association,Admin / Settings,QrCodeSettingsController,getAppleAppSiteAssociation,hasAnyAuthority('SYS_ADMIN'),
+POST,/api/mobile/qr/settings,Admin / Settings,QrCodeSettingsController,saveQrCodeSettings,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",mobile-application.service.ts
+GET,/api/mobile/qr/settings,Admin / Settings,QrCodeSettingsController,getQrCodeSettings,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",mobile-application.service.ts
+GET,/api/mobile/qr/deepLink,Admin / Settings,QrCodeSettingsController,getMobileAppDeepLink,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",mobile-application.service.ts
+GET,/api/noauth/qr/{secret},Admin / Settings,QrCodeSettingsController,getUserTokenByMobileSecret,None,
+GET,/api/noauth/qr,Admin / Settings,QrCodeSettingsController,getApplicationRedirect,None,
+GET,/api/tenant/{tenantId},Tenant / Customer,TenantController,getTenantById,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')","device.service.ts, tenant.service.ts, entity-view.service.ts, asset.service.ts, dashboard.service.ts, edge.service.ts"
+GET,/api/tenant/info/{tenantId},Tenant / Customer,TenantController,getTenantInfoById,hasAuthority('SYS_ADMIN'),tenant.service.ts
+POST,/api/tenant,Tenant / Customer,TenantController,saveTenant,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')","tenant.service.ts, tenant-profile.service.ts"
+DELETE,/api/tenant/{tenantId},Tenant / Customer,TenantController,deleteTenant,hasAuthority('SYS_ADMIN'),"device.service.ts, tenant.service.ts, entity-view.service.ts, asset.service.ts, tenant-profile.service.ts, dashboard.service.ts, edge.service.ts"
+GET,/api/tenants,Tenant / Customer,TenantController,getTenants,hasAuthority('SYS_ADMIN'),"entity.service.ts, tenant.service.ts"
+GET,/api/tenantInfos,Tenant / Customer,TenantController,getTenantInfos,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",tenant.service.ts
+GET,/api/tenants,Tenant / Customer,TenantController,getTenantsByIdsV1,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",
+GET,/api/tenants/list,Tenant / Customer,TenantController,getTenantsByIds,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')","entity.service.ts, tenant.service.ts"
+GET,/api/edges/enabled,OTA / Edge / Provisioning,EdgeController,isEdgesSupportEnabled,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/edge/{edgeId},OTA / Edge / Provisioning,EdgeController,getEdgeById,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",edge.service.ts
+GET,/api/edge/info/{edgeId},OTA / Edge / Provisioning,EdgeController,getEdgeInfoById,hasAuthority('TENANT_ADMIN'),edge.service.ts
+POST,/api/edge,OTA / Edge / Provisioning,EdgeController,saveEdge,hasAuthority('TENANT_ADMIN'),"entity.service.ts, edge.service.ts"
+DELETE,/api/edge/{edgeId},OTA / Edge / Provisioning,EdgeController,deleteEdge,hasAuthority('TENANT_ADMIN'),edge.service.ts
+GET,/api/edges,OTA / Edge / Provisioning,EdgeController,getEdges,hasAuthority('TENANT_ADMIN'),"entity.service.ts, edge.service.ts"
+POST,/api/customer/{customerId}/edge/{edgeId},OTA / Edge / Provisioning,EdgeController,assignEdgeToCustomer,hasAuthority('TENANT_ADMIN'),edge.service.ts
+DELETE,/api/customer/edge/{edgeId},OTA / Edge / Provisioning,EdgeController,unassignEdgeFromCustomer,hasAuthority('TENANT_ADMIN'),edge.service.ts
+POST,/api/customer/public/edge/{edgeId},OTA / Edge / Provisioning,EdgeController,assignEdgeToPublicCustomer,hasAuthority('TENANT_ADMIN'),edge.service.ts
+GET,/api/tenant/edges,OTA / Edge / Provisioning,EdgeController,getTenantEdges,hasAuthority('TENANT_ADMIN'),
+GET,/api/tenant/edgeInfos,OTA / Edge / Provisioning,EdgeController,getTenantEdgeInfos,hasAuthority('TENANT_ADMIN'),"entity.service.ts, edge.service.ts"
+GET,/api/tenant/edges,OTA / Edge / Provisioning,EdgeController,getTenantEdge,hasAuthority('TENANT_ADMIN'),"entity.service.ts, edge.service.ts"
+GET,/api/tenant/edge,OTA / Edge / Provisioning,EdgeController,getTenantEdgeByName,hasAnyAuthority('TENANT_ADMIN'),
+POST,/api/edge/{edgeId}/{ruleChainId}/root,OTA / Edge / Provisioning,EdgeController,setEdgeRootRuleChain,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",rule-chain.service.ts
+GET,/api/customer/{customerId}/edges,OTA / Edge / Provisioning,EdgeController,getCustomerEdges,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/customer/{customerId}/edgeInfos,OTA / Edge / Provisioning,EdgeController,getCustomerEdgeInfos,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')","entity.service.ts, edge.service.ts"
+GET,/api/edges,OTA / Edge / Provisioning,EdgeController,getEdgesByIds,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",edge.service.ts
+GET,/api/edges/list,OTA / Edge / Provisioning,EdgeController,getEdgeList,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",
+POST,/api/edges,OTA / Edge / Provisioning,EdgeController,findEdgesByQuery,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",edge.service.ts
+GET,/api/edge/types,OTA / Edge / Provisioning,EdgeController,getEdgeTypes,hasAuthority('TENANT_ADMIN'),"entity.service.ts, edge.service.ts"
+POST,/api/edge/sync/{edgeId},OTA / Edge / Provisioning,EdgeController,syncEdge,hasAuthority('TENANT_ADMIN'),edge.service.ts
+GET,/api/edge/missingToRelatedRuleChains/{edgeId},OTA / Edge / Provisioning,EdgeController,findMissingToRelatedRuleChains,hasAnyAuthority('TENANT_ADMIN'),edge.service.ts
+POST,/api/edge/bulk_import,OTA / Edge / Provisioning,EdgeController,processEdgesBulkImport,hasAnyAuthority('TENANT_ADMIN'),edge.service.ts
+GET,/api/edge/instructions/install/{edgeId}/{method},OTA / Edge / Provisioning,EdgeController,getEdgeInstallInstructions,hasAnyAuthority('TENANT_ADMIN'),edge.service.ts
+GET,/api/edge/instructions/upgrade/{edgeVersion}/{method},OTA / Edge / Provisioning,EdgeController,getEdgeUpgradeInstructions,hasAnyAuthority('TENANT_ADMIN'),edge.service.ts
+GET,/api/edge/{edgeId}/upgrade/available,OTA / Edge / Provisioning,EdgeController,isEdgeUpgradeAvailable,hasAnyAuthority('TENANT_ADMIN'),edge.service.ts
+POST,/api/apiKey,Admin / Settings,ApiKeyController,saveApiKey,"hasAnyAuthority('SYS_ADMIN','TENANT_ADMIN', 'CUSTOMER_USER')",api-key.service.ts
+GET,/api/apiKeys/{userId},Admin / Settings,ApiKeyController,getUserApiKeys,"hasAnyAuthority('SYS_ADMIN','TENANT_ADMIN', 'CUSTOMER_USER')",api-key.service.ts
+PUT,/api/apiKey/{id}/description,Admin / Settings,ApiKeyController,updateApiKeyDescription,"hasAnyAuthority('SYS_ADMIN','TENANT_ADMIN', 'CUSTOMER_USER')",api-key.service.ts
+PUT,/api/apiKey/{id}/enabled/{enabledValue},Admin / Settings,ApiKeyController,enableApiKey,"hasAnyAuthority('SYS_ADMIN','TENANT_ADMIN', 'CUSTOMER_USER')",api-key.service.ts
+DELETE,/api/apiKey/{id},Admin / Settings,ApiKeyController,deleteApiKey,"hasAnyAuthority('SYS_ADMIN','TENANT_ADMIN', 'CUSTOMER_USER')",api-key.service.ts
+POST,/api/trendz/settings,Reports,TrendzController,saveTrendzSettings,hasAnyAuthority('TENANT_ADMIN'),trendz-settings.service.ts
+GET,/api/trendz/settings,Reports,TrendzController,getTrendzSettings,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",trendz-settings.service.ts
+GET,/api/device-connectivity/{deviceId},Device Management,DeviceConnectivityController,getDevicePublishTelemetryCommands,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",device.service.ts
+GET,/api/device-connectivity/{protocol}/certificate/download,Device Management,DeviceConnectivityController,downloadServerCertificate,None,
+GET,/api/device-connectivity/gateway-launch/{deviceId}/docker-compose/download,Device Management,DeviceConnectivityController,downloadGatewayDockerCompose,None,device.service.ts
+POST,/api/ai/model,Internal / System APIs,AiModelController,saveAiModel,hasAuthority('TENANT_ADMIN'),ai-model.service.ts
+GET,/api/ai/model/{modelUuid},Internal / System APIs,AiModelController,getAiModelById,hasAuthority('TENANT_ADMIN'),"entity.service.ts, ai-model.service.ts"
+GET,/api/ai/model,Internal / System APIs,AiModelController,getAiModels,hasAuthority('TENANT_ADMIN'),"entity.service.ts, ai-model.service.ts"
+DELETE,/api/ai/model/{modelUuid},Internal / System APIs,AiModelController,deleteAiModelById,hasAuthority('TENANT_ADMIN'),ai-model.service.ts
+POST,/api/ai/model/chat,Internal / System APIs,AiModelController,sendChatRequest,hasAuthority('TENANT_ADMIN'),ai-model.service.ts
+POST,/api/alarm/{alarmId}/comment,Alarm Management,AlarmCommentController,saveAlarmComment,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",alarm-comment.service.ts
+DELETE,/api/alarm/{alarmId}/comment/{commentId},Alarm Management,AlarmCommentController,deleteAlarmComment,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",alarm-comment.service.ts
+GET,/api/alarm/{alarmId}/comment,Alarm Management,AlarmCommentController,getAlarmComments,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",alarm-comment.service.ts
+GET,/api/queueStats,Internal / System APIs,QueueStatsController,getTenantQueueStats,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",
+GET,/api/queueStats/{queueStatsId},Internal / System APIs,QueueStatsController,getQueueStatsById,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",queue.service.ts
+GET,/api/queueStats,Internal / System APIs,QueueStatsController,getQueueStatsByIdsV1,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",
+GET,/api/queueStats/list,Internal / System APIs,QueueStatsController,getQueueStatsByIds,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",
+GET,/api/alarm/{alarmId},Alarm Management,AlarmController,getAlarmById,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')","alarm.service.ts, alarm-rules.service.ts"
+GET,/api/alarm/info/{alarmId},Alarm Management,AlarmController,getAlarmInfoById,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",alarm.service.ts
+POST,/api/alarm,Alarm Management,AlarmController,saveAlarm,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')","alarm-comment.service.ts, alarm.service.ts, alarm-rules.service.ts"
+DELETE,/api/alarm/{alarmId},Alarm Management,AlarmController,deleteAlarm,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')","alarm-comment.service.ts, alarm.service.ts, alarm-rules.service.ts"
+POST,/api/alarm/{alarmId}/ack,Alarm Management,AlarmController,ackAlarm,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",alarm.service.ts
+POST,/api/alarm/{alarmId}/clear,Alarm Management,AlarmController,clearAlarm,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",alarm.service.ts
+POST,/api/alarm/{alarmId}/assign/{assigneeId},Alarm Management,AlarmController,assignAlarm,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",alarm.service.ts
+DELETE,/api/alarm/{alarmId}/assign,Alarm Management,AlarmController,unassignAlarm,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",alarm.service.ts
+GET,/api/alarm/{entityType}/{entityId},Alarm Management,AlarmController,getAlarmsByEntity,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')","alarm-comment.service.ts, alarm.service.ts, alarm-rules.service.ts"
+GET,/api/alarms,Alarm Management,AlarmController,getAllAlarms,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",alarm.service.ts
+GET,/api/v2/alarm/{entityType}/{entityId},Alarm Management,AlarmController,getAlarmsV2,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",alarm.service.ts
+GET,/api/v2/alarms,Alarm Management,AlarmController,getAllAlarmsV2,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",alarm.service.ts
+GET,/api/alarm/highestSeverity/{entityType}/{entityId},Alarm Management,AlarmController,getHighestAlarmSeverity,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",alarm.service.ts
+GET,/api/alarm/types,Alarm Management,AlarmController,getAlarmTypes,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",alarm.service.ts
+POST,/api/mobile/bundle,Mobile App,MobileAppBundleController,saveMobileAppBundle,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",mobile-app.service.ts
+PUT,/api/mobile/bundle/{id}/oauth2Clients,Mobile App,MobileAppBundleController,updateMobileAppBundleOauth2Clients,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",mobile-app.service.ts
+GET,/api/mobile/bundle/infos,Mobile App,MobileAppBundleController,getTenantMobileAppBundleInfos,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')","mobile-app.service.ts, entity.service.ts"
+GET,/api/mobile/bundle/info/{id},Mobile App,MobileAppBundleController,getMobileAppBundleInfoById,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')","mobile-app.service.ts, entity.service.ts"
+DELETE,/api/mobile/bundle/{id},Mobile App,MobileAppBundleController,deleteMobileAppBundle,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",mobile-app.service.ts
+GET,/api/job/{id},Internal / System APIs,JobController,getJobById,hasAnyAuthority('TENANT_ADMIN'),
+GET,/api/jobs,Internal / System APIs,JobController,getJobs,hasAnyAuthority('TENANT_ADMIN'),
+POST,/api/job/{id}/cancel,Internal / System APIs,JobController,cancelJob,hasAnyAuthority('TENANT_ADMIN'),
+POST,/api/job/{id}/reprocess,Internal / System APIs,JobController,reprocessJob,hasAnyAuthority('TENANT_ADMIN'),
+DELETE,/api/job/{id},Internal / System APIs,JobController,deleteJob,hasAnyAuthority('TENANT_ADMIN'),
+GET,/api/tenantProfile/{tenantProfileId},Tenant / Customer,TenantProfileController,getTenantProfileById,hasAnyAuthority('SYS_ADMIN'),tenant-profile.service.ts
+GET,/api/tenantProfileInfo/{tenantProfileId},Tenant / Customer,TenantProfileController,getTenantProfileInfoById,hasAnyAuthority('SYS_ADMIN'),tenant-profile.service.ts
+GET,/api/tenantProfileInfo/default,Tenant / Customer,TenantProfileController,getDefaultTenantProfileInfo,hasAuthority('SYS_ADMIN'),tenant-profile.service.ts
+POST,/api/tenantProfile,Tenant / Customer,TenantProfileController,saveTenantProfile,hasAuthority('SYS_ADMIN'),tenant-profile.service.ts
+DELETE,/api/tenantProfile/{tenantProfileId},Tenant / Customer,TenantProfileController,deleteTenantProfile,hasAnyAuthority('SYS_ADMIN'),tenant-profile.service.ts
+POST,/api/tenantProfile/{tenantProfileId}/default,Tenant / Customer,TenantProfileController,setDefaultTenantProfile,hasAuthority('SYS_ADMIN'),tenant-profile.service.ts
+GET,/api/tenantProfiles,Tenant / Customer,TenantProfileController,getTenantProfiles,hasAuthority('SYS_ADMIN'),"entity.service.ts, tenant-profile.service.ts"
+GET,/api/tenantProfileInfos,Tenant / Customer,TenantProfileController,getTenantProfileInfos,hasAuthority('SYS_ADMIN'),tenant-profile.service.ts
+GET,/api/tenantProfiles,Tenant / Customer,TenantProfileController,getTenantProfilesByIds,hasAuthority('SYS_ADMIN'),"entity.service.ts, tenant-profile.service.ts"
+GET,/api/tenantProfiles/list,Tenant / Customer,TenantProfileController,getTenantProfileList,hasAuthority('SYS_ADMIN'),
+POST,/api/auth/2fa/verification/send,Authentication & Authorization,TwoFactorAuthController,requestTwoFaVerificationCode,hasAuthority('PRE_VERIFICATION_TOKEN'),two-factor-authentication.service.ts
+POST,/api/auth/2fa/verification/check,Authentication & Authorization,TwoFactorAuthController,checkTwoFaVerificationCode,hasAuthority('PRE_VERIFICATION_TOKEN'),auth.service.ts
+GET,/api/auth/2fa/providers,Authentication & Authorization,TwoFactorAuthController,getAvailableTwoFaProviderInfos,hasAuthority('PRE_VERIFICATION_TOKEN'),auth.service.ts
+POST,/api/auth/2fa/login,Authentication & Authorization,TwoFactorAuthController,authenticateByTwoFaConfigurationToken,hasAuthority('MFA_CONFIGURATION_TOKEN'),
+POST,/api/image,Files / Uploads,ImageController,uploadImage,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",image.service.ts
+PUT,/,Files / Uploads,ImageController,updateImage,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')","device.service.ts, event.service.ts, image.service.ts, entity-view.service.ts, asset.service.ts, device-profile.service.ts, entity.service.ts, dashboard.service.ts, edge.service.ts, auth.service.ts"
+PUT,/,Files / Uploads,ImageController,updateImageInfo,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')","device.service.ts, event.service.ts, image.service.ts, entity-view.service.ts, asset.service.ts, device-profile.service.ts, entity.service.ts, dashboard.service.ts, edge.service.ts, auth.service.ts"
+PUT,/,Files / Uploads,ImageController,updateImagePublicStatus,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')","device.service.ts, event.service.ts, image.service.ts, entity-view.service.ts, asset.service.ts, device-profile.service.ts, entity.service.ts, dashboard.service.ts, edge.service.ts, auth.service.ts"
+GET,/,Files / Uploads,ImageController,downloadImage,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')","device.service.ts, event.service.ts, image.service.ts, entity-view.service.ts, asset.service.ts, device-profile.service.ts, entity.service.ts, dashboard.service.ts, edge.service.ts, auth.service.ts"
+GET,/api/images/public/{publicResourceKey},Files / Uploads,ImageController,downloadPublicImage,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",
+GET,/,Files / Uploads,ImageController,exportImage,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')","device.service.ts, event.service.ts, image.service.ts, entity-view.service.ts, asset.service.ts, device-profile.service.ts, entity.service.ts, dashboard.service.ts, edge.service.ts, auth.service.ts"
+PUT,/api/image/import,Files / Uploads,ImageController,importImage,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",image.service.ts
+GET,/,Files / Uploads,ImageController,downloadImagePreview,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')","device.service.ts, event.service.ts, entity-view.service.ts, asset.service.ts, device-profile.service.ts, entity.service.ts, dashboard.service.ts, edge.service.ts, auth.service.ts"
+GET,/,Files / Uploads,ImageController,getImageInfo,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')","device.service.ts, event.service.ts, image.service.ts, entity-view.service.ts, asset.service.ts, device-profile.service.ts, entity.service.ts, dashboard.service.ts, edge.service.ts, auth.service.ts"
+GET,/api/images,Files / Uploads,ImageController,getImages,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",image.service.ts
+DELETE,/,Files / Uploads,ImageController,deleteImage,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')","device.service.ts, event.service.ts, image.service.ts, entity-view.service.ts, asset.service.ts, device-profile.service.ts, entity.service.ts, dashboard.service.ts, edge.service.ts, auth.service.ts"
+GET,/api/audit/logs/customer/{customerId},Internal / System APIs,AuditLogController,getAuditLogsByCustomerId,hasAuthority('TENANT_ADMIN'),audit-log.service.ts
+GET,/api/audit/logs/user/{userId},Internal / System APIs,AuditLogController,getAuditLogsByUserId,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",audit-log.service.ts
+GET,/api/audit/logs/entity/{entityType}/{entityId},Internal / System APIs,AuditLogController,getAuditLogsByEntityId,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",audit-log.service.ts
+GET,/api/audit/logs,Internal / System APIs,AuditLogController,getAuditLogs,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",audit-log.service.ts
+GET,/api/deviceProfile/{deviceProfileId},Device Management,DeviceProfileController,getDeviceProfileById,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",device-profile.service.ts
+GET,/api/deviceProfileInfo/{deviceProfileId},Device Management,DeviceProfileController,getDeviceProfileInfoById,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",device-profile.service.ts
+GET,/api/deviceProfileInfo/default,Device Management,DeviceProfileController,getDefaultDeviceProfileInfo,hasAnyAuthority('TENANT_ADMIN'),device-profile.service.ts
+GET,/api/deviceProfile/devices/keys/timeseries,Device Management,DeviceProfileController,getDeviceProfileTimeseriesKeys,hasAnyAuthority('TENANT_ADMIN'),device-profile.service.ts
+GET,/api/deviceProfile/devices/keys/attributes,Device Management,DeviceProfileController,getAttributesKeys,hasAuthority('TENANT_ADMIN'),device-profile.service.ts
+POST,/api/deviceProfile,Device Management,DeviceProfileController,saveDeviceProfile,hasAuthority('TENANT_ADMIN'),device-profile.service.ts
+DELETE,/api/deviceProfile/{deviceProfileId},Device Management,DeviceProfileController,deleteDeviceProfile,hasAnyAuthority('TENANT_ADMIN'),device-profile.service.ts
+POST,/api/deviceProfile/{deviceProfileId}/default,Device Management,DeviceProfileController,setDefaultDeviceProfile,hasAuthority('TENANT_ADMIN'),device-profile.service.ts
+GET,/api/deviceProfiles,Device Management,DeviceProfileController,getDeviceProfiles,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')","entity.service.ts, device-profile.service.ts"
+GET,/api/deviceProfileInfos,Device Management,DeviceProfileController,getDeviceProfileInfos,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')","entity.service.ts, device-profile.service.ts"
+GET,/api/deviceProfile/names,Device Management,DeviceProfileController,getDeviceProfileNames,hasAuthority('TENANT_ADMIN'),"entity.service.ts, device-profile.service.ts"
+GET,/api/deviceProfileInfos,Device Management,DeviceProfileController,getDeviceProfileInfosByIdsV1,hasAuthority('TENANT_ADMIN'),
+GET,/api/deviceProfileInfos/list,Device Management,DeviceProfileController,getDeviceProfileInfosByIds,hasAuthority('TENANT_ADMIN'),
+GET,/api/user/{userId},User & Role Management,UserController,getUserById,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')","user-settings.service.ts, user.service.ts"
+GET,/api/user/tokenAccessEnabled,User & Role Management,UserController,isUserTokenAccessEnabled,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",
+GET,/api/user/{userId}/token,User & Role Management,UserController,getUserToken,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",auth.service.ts
+POST,/api/user,User & Role Management,UserController,saveUser,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')","user-settings.service.ts, user.service.ts"
+POST,/api/user/sendActivationMail,User & Role Management,UserController,sendActivationEmail,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",user.service.ts
+GET,/api/user/{userId}/activationLink,User & Role Management,UserController,getActivationLink,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",user.service.ts
+GET,/api/user/{userId}/activationLinkInfo,User & Role Management,UserController,getActivationLinkInfo,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",user.service.ts
+DELETE,/api/user/{userId},User & Role Management,UserController,deleteUser,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')","auth.effects.ts, user-settings.service.ts, user.service.ts"
+GET,/api/users,User & Role Management,UserController,getUsers,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')","entity.service.ts, user.service.ts"
+GET,/api/users/info,User & Role Management,UserController,findUsersByQuery,hasAuthority('SYS_ADMIN'),user.service.ts
+GET,/api/tenant/{tenantId}/users,User & Role Management,UserController,getTenantAdmins,hasAuthority('TENANT_ADMIN'),user.service.ts
+GET,/api/customer/{customerId}/users,User & Role Management,UserController,getCustomerUsers,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",user.service.ts
+POST,/api/user/{userId}/userCredentialsEnabled,User & Role Management,UserController,setUserCredentialsEnabled,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",user.service.ts
+GET,/api/users/assign/{alarmId},User & Role Management,UserController,getUsersForAssign,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",user.service.ts
+POST,/api/user/settings,User & Role Management,UserController,saveUserSettings,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",user-settings.service.ts
+PUT,/api/user/settings,User & Role Management,UserController,putUserSettings,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')","auth.effects.ts, user-settings.service.ts"
+PUT,/api/user/settings/general,User & Role Management,UserController,putGeneralUserSettings,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/user/settings,User & Role Management,UserController,getUserSettings,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",user-settings.service.ts
+GET,/api/user/settings/general,User & Role Management,UserController,getGeneralUserSettings,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+DELETE,/api/user/settings/{paths},User & Role Management,UserController,deleteGeneralUserSettings,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",user-settings.service.ts
+PUT,/api/user/settings/{type},User & Role Management,UserController,putUserSettings,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')","auth.effects.ts, user-settings.service.ts"
+GET,/api/user/settings/{type},User & Role Management,UserController,getUserSettings,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",user-settings.service.ts
+DELETE,/api/user/settings/{type}/{paths},User & Role Management,UserController,deleteUserSettingsByType,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/user/dashboards,User & Role Management,UserController,getUserDashboardsInfo,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",user-settings.service.ts
+GET,/api/user/lastVisitedDashboards,User & Role Management,UserController,getLastVisitedDashboards,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/user/dashboards/{dashboardId}/{action},User & Role Management,UserController,reportUserDashboardAction,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",user-settings.service.ts
+GET,/api/user/mobile/session,User & Role Management,UserController,getMobileSession,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+POST,/api/user/mobile/session,User & Role Management,UserController,saveMobileSession,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+DELETE,/api/user/mobile/session,User & Role Management,UserController,removeMobileSession,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/users,User & Role Management,UserController,getUsersByIdsV1,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/users/list,User & Role Management,UserController,getUsersByIds,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')","entity.service.ts, user.service.ts"
+GET,/api/component/{componentDescriptorClazz:.+},Internal / System APIs,ComponentDescriptorController,getComponentDescriptorByClazz,"hasAnyAuthority('SYS_ADMIN','TENANT_ADMIN')",component-descriptor.service.ts
+GET,/api/components/{componentType},Internal / System APIs,ComponentDescriptorController,getComponentDescriptorsByType,"hasAnyAuthority('SYS_ADMIN','TENANT_ADMIN')","component-descriptor.service.ts, rule-chain.service.ts"
+GET,/api/components,Internal / System APIs,ComponentDescriptorController,getComponentDescriptorsByTypes,"hasAnyAuthority('SYS_ADMIN','TENANT_ADMIN')","component-descriptor.service.ts, rule-chain.service.ts"
+POST,/oneway/{deviceId}/oneway/{deviceId},Internal / System APIs,RpcV1Controller,handleOneWayDeviceRPCRequestV1,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+POST,/oneway/{deviceId}/twoway/{deviceId},Internal / System APIs,RpcV1Controller,handleTwoWayDeviceRPCRequestV1,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/assetProfile/{assetProfileId},Asset Management,AssetProfileController,getAssetProfileById,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",asset-profile.service.ts
+GET,/api/assetProfileInfo/{assetProfileId},Asset Management,AssetProfileController,getAssetProfileInfoById,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",asset-profile.service.ts
+GET,/api/assetProfileInfo/default,Asset Management,AssetProfileController,getDefaultAssetProfileInfo,hasAuthority('TENANT_ADMIN'),asset-profile.service.ts
+POST,/api/assetProfile,Asset Management,AssetProfileController,saveAssetProfile,hasAuthority('TENANT_ADMIN'),asset-profile.service.ts
+DELETE,/api/assetProfile/{assetProfileId},Asset Management,AssetProfileController,deleteAssetProfile,hasAnyAuthority('TENANT_ADMIN'),asset-profile.service.ts
+POST,/api/assetProfile/{assetProfileId}/default,Asset Management,AssetProfileController,setDefaultAssetProfile,hasAuthority('TENANT_ADMIN'),asset-profile.service.ts
+GET,/api/assetProfiles,Asset Management,AssetProfileController,getAssetProfiles,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')","entity.service.ts, asset-profile.service.ts"
+GET,/api/assetProfileInfos,Asset Management,AssetProfileController,getAssetProfileInfos,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')","entity.service.ts, asset-profile.service.ts"
+GET,/api/assetProfile/names,Asset Management,AssetProfileController,getAssetProfileNames,hasAuthority('TENANT_ADMIN'),"entity.service.ts, asset-profile.service.ts"
+GET,/api/assetProfileInfos,Asset Management,AssetProfileController,getAssetProfilesByIdsV1,hasAuthority('TENANT_ADMIN'),
+GET,/api/assetProfileInfos/list,Asset Management,AssetProfileController,getAssetProfilesByIds,hasAuthority('TENANT_ADMIN'),"entity.service.ts, asset-profile.service.ts"
+GET,/api/uiSettings/helpBaseUrl,Admin / Settings,UiSettingsController,getHelpBaseUrl,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",ui-settings.service.ts
+GET,/api/queues,Internal / System APIs,QueueController,getTenantQueuesByServiceType,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",queue.service.ts
+GET,/api/queues/{queueId},Internal / System APIs,QueueController,getQueueById,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')","queue.service.ts, entity.service.ts"
+GET,/api/queues/name/{queueName},Internal / System APIs,QueueController,getQueueByName,hasAnyAuthority('SYS_ADMIN'),queue.service.ts
+POST,/api/queues,Internal / System APIs,QueueController,saveQueue,hasAnyAuthority('SYS_ADMIN'),queue.service.ts
+DELETE,/api/queues/{queueId},Internal / System APIs,QueueController,deleteQueue,hasAnyAuthority('SYS_ADMIN'),queue.service.ts
+GET,/api/ruleChain/{ruleChainId},Rule Engine,RuleChainController,getRuleChainById,hasAuthority('TENANT_ADMIN'),rule-chain.service.ts
+GET,/api/ruleChain/{ruleChainId}/output/labels,Rule Engine,RuleChainController,getRuleChainOutputLabels,hasAuthority('TENANT_ADMIN'),rule-chain.service.ts
+GET,/api/ruleChain/{ruleChainId}/output/labels/usage,Rule Engine,RuleChainController,getRuleChainOutputLabelsUsage,hasAuthority('TENANT_ADMIN'),
+GET,/api/ruleChain/{ruleChainId}/metadata,Rule Engine,RuleChainController,getRuleChainMetaData,hasAuthority('TENANT_ADMIN'),rule-chain.service.ts
+POST,/api/ruleChain,Rule Engine,RuleChainController,saveRuleChain,hasAuthority('TENANT_ADMIN'),rule-chain.service.ts
+POST,/api/ruleChain/device/default,Rule Engine,RuleChainController,setDeviceDefaultRuleChain,hasAuthority('TENANT_ADMIN'),rule-chain.service.ts
+POST,/api/ruleChain/{ruleChainId}/root,Rule Engine,RuleChainController,setRootRuleChain,hasAuthority('TENANT_ADMIN'),rule-chain.service.ts
+POST,/api/ruleChain/metadata,Rule Engine,RuleChainController,saveRuleChainMetaData,hasAuthority('TENANT_ADMIN'),rule-chain.service.ts
+GET,/api/ruleChains,Rule Engine,RuleChainController,getRuleChains,hasAuthority('TENANT_ADMIN'),"entity.service.ts, rule-chain.service.ts"
+DELETE,/api/ruleChain/{ruleChainId},Rule Engine,RuleChainController,deleteRuleChain,hasAuthority('TENANT_ADMIN'),rule-chain.service.ts
+GET,/api/ruleNode/{ruleNodeId}/debugIn,Rule Engine,RuleChainController,getLatestRuleNodeDebugInput,hasAuthority('TENANT_ADMIN'),rule-chain.service.ts
+GET,/api/ruleChain/tbelEnabled,Rule Engine,RuleChainController,isTbelEnabled,hasAuthority('TENANT_ADMIN'),
+POST,/api/ruleChain/testScript,Rule Engine,RuleChainController,testRuleChainScript,hasAuthority('TENANT_ADMIN'),rule-chain.service.ts
+GET,/api/ruleChains/export,Rule Engine,RuleChainController,exportRuleChains,hasAuthority('TENANT_ADMIN'),
+POST,/api/ruleChains/import,Rule Engine,RuleChainController,importRuleChains,hasAuthority('TENANT_ADMIN'),
+POST,/api/edge/{edgeId}/ruleChain/{ruleChainId},Rule Engine,RuleChainController,assignRuleChainToEdge,hasAuthority('TENANT_ADMIN'),rule-chain.service.ts
+DELETE,/api/edge/{edgeId}/ruleChain/{ruleChainId},Rule Engine,RuleChainController,unassignRuleChainFromEdge,hasAuthority('TENANT_ADMIN'),rule-chain.service.ts
+GET,/api/edge/{edgeId}/ruleChains,Rule Engine,RuleChainController,getEdgeRuleChains,hasAuthority('TENANT_ADMIN'),"entity.service.ts, rule-chain.service.ts"
+POST,/api/ruleChain/{ruleChainId}/edgeTemplateRoot,Rule Engine,RuleChainController,setEdgeTemplateRootRuleChain,hasAuthority('TENANT_ADMIN'),rule-chain.service.ts
+POST,/api/ruleChain/{ruleChainId}/autoAssignToEdge,Rule Engine,RuleChainController,setAutoAssignToEdgeRuleChain,hasAuthority('TENANT_ADMIN'),rule-chain.service.ts
+DELETE,/api/ruleChain/{ruleChainId}/autoAssignToEdge,Rule Engine,RuleChainController,unsetAutoAssignToEdgeRuleChain,hasAuthority('TENANT_ADMIN'),rule-chain.service.ts
+GET,/api/ruleChain/autoAssignToEdgeRuleChains,Rule Engine,RuleChainController,getAutoAssignToEdgeRuleChains,hasAuthority('TENANT_ADMIN'),rule-chain.service.ts
+GET,/api/ruleChains,Rule Engine,RuleChainController,getRuleChainsByIdsV1,hasAuthority('TENANT_ADMIN'),
+GET,/api/ruleChains/list,Rule Engine,RuleChainController,getRuleChainsByIds,hasAuthority('TENANT_ADMIN'),"entity.service.ts, rule-chain.service.ts"
+GET,/api/device/{deviceId},Device Management,DeviceController,getDeviceById,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",device.service.ts
+GET,/api/device/info/{deviceId},Device Management,DeviceController,getDeviceInfoById,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",device.service.ts
+POST,/api/device,Device Management,DeviceController,saveDevice,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')","device.service.ts, entity.service.ts, device-profile.service.ts"
+POST,/api/device-with-credentials,Device Management,DeviceController,saveDeviceWithCredentials,hasAuthority('TENANT_ADMIN'),device.service.ts
+DELETE,/api/device/{deviceId},Device Management,DeviceController,deleteDevice,hasAuthority('TENANT_ADMIN'),"device.service.ts, device-profile.service.ts"
+POST,/api/customer/{customerId}/device/{deviceId},Device Management,DeviceController,assignDeviceToCustomer,hasAuthority('TENANT_ADMIN'),device.service.ts
+DELETE,/api/customer/device/{deviceId},Device Management,DeviceController,unassignDeviceFromCustomer,hasAuthority('TENANT_ADMIN'),device.service.ts
+POST,/api/customer/public/device/{deviceId},Device Management,DeviceController,assignDeviceToPublicCustomer,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",device.service.ts
+GET,/api/device/{deviceId}/credentials,Device Management,DeviceController,getDeviceCredentialsByDeviceId,hasAuthority('TENANT_ADMIN'),device.service.ts
+POST,/api/device/credentials,Device Management,DeviceController,updateDeviceCredentials,hasAuthority('TENANT_ADMIN'),device.service.ts
+GET,/api/tenant/devices,Device Management,DeviceController,getTenantDevices,hasAuthority('TENANT_ADMIN'),
+GET,/api/tenant/deviceInfos,Device Management,DeviceController,getTenantDeviceInfos,hasAuthority('TENANT_ADMIN'),"device.service.ts, entity.service.ts"
+GET,/api/tenant/devices,Device Management,DeviceController,getTenantDevice,hasAuthority('TENANT_ADMIN'),"device.service.ts, entity.service.ts"
+GET,/api/tenant/device,Device Management,DeviceController,getTenantDeviceByName,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/customer/{customerId}/devices,Device Management,DeviceController,getCustomerDevices,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/customer/{customerId}/deviceInfos,Device Management,DeviceController,getCustomerDeviceInfos,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')","device.service.ts, entity.service.ts"
+GET,/api/devices,Device Management,DeviceController,getDevicesByIds,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",device.service.ts
+POST,/api/devices,Device Management,DeviceController,findDevicesByQuery,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",device.service.ts
+GET,/api/device/types,Device Management,DeviceController,getDeviceTypes,hasAuthority('CUSTOMER_USER'),device.service.ts
+POST,/api/customer/device/{deviceName}/claim,Device Management,DeviceController,claimDevice,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",device.service.ts
+DELETE,/api/customer/device/{deviceName}/claim,Device Management,DeviceController,reClaimDevice,hasAuthority('TENANT_ADMIN'),device.service.ts
+POST,/api/tenant/{tenantId}/device/{deviceId},Device Management,DeviceController,assignDeviceToTenant,hasAuthority('TENANT_ADMIN'),
+POST,/api/edge/{edgeId}/device/{deviceId},Device Management,DeviceController,assignDeviceToEdge,hasAuthority('TENANT_ADMIN'),device.service.ts
+DELETE,/api/edge/{edgeId}/device/{deviceId},Device Management,DeviceController,unassignDeviceFromEdge,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",device.service.ts
+GET,/api/edge/{edgeId}/devices,Device Management,DeviceController,getEdgeDevices,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')","device.service.ts, entity.service.ts"
+GET,/api/devices/count/{otaPackageType}/{deviceProfileId},Device Management,DeviceController,countByDeviceProfileAndEmptyOtaPackage,hasAnyAuthority('TENANT_ADMIN'),ota-package.service.ts
+POST,/api/device/bulk_import,Device Management,DeviceController,processDevicesBulkImport,hasAnyAuthority('TENANT_ADMIN'),device.service.ts
+GET,/api/edge/{edgeId}/events,OTA / Edge / Provisioning,EdgeEventController,getEdgeEvents,hasAuthority('TENANT_ADMIN'),edge.service.ts
+GET,/api/auth/user,Authentication & Authorization,AuthController,getUser,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')","user-settings.service.ts, entity.service.ts, api-key.service.ts, user.service.ts, auth.service.ts"
+POST,/api/auth/logout,Authentication & Authorization,AuthController,logout,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",auth.service.ts
+POST,/api/auth/changePassword,Authentication & Authorization,AuthController,changePassword,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",auth.service.ts
+GET,/api/noauth/userPasswordPolicy,Authentication & Authorization,AuthController,getUserPasswordPolicy,None,auth.service.ts
+GET,/api/noauth/activate,Authentication & Authorization,AuthController,checkActivateToken,None,
+POST,/api/noauth/resetPasswordByEmail,Authentication & Authorization,AuthController,requestResetPasswordByEmail,None,auth.service.ts
+GET,/api/noauth/resetPassword,Authentication & Authorization,AuthController,checkResetToken,None,auth.service.ts
+POST,/api/noauth/activate,Authentication & Authorization,AuthController,activateUser,None,
+POST,/api/noauth/resetPassword,Authentication & Authorization,AuthController,resetPassword,None,auth.service.ts
+POST,/api/oauth2/config/template,Admin / Settings,OAuth2ConfigTemplateController,saveClientRegistrationTemplate,hasAnyAuthority('SYS_ADMIN'),oauth2.service.ts
+DELETE,/api/oauth2/config/template/{clientRegistrationTemplateId},Admin / Settings,OAuth2ConfigTemplateController,deleteClientRegistrationTemplate,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",
+GET,/api/oauth2/config/template,Admin / Settings,OAuth2ConfigTemplateController,getOAuth2ClientRegistrationTemplates,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",oauth2.service.ts
+POST,/oneway/{deviceId}/oneway/{deviceId},Internal / System APIs,RpcV2Controller,handleOneWayDeviceRPCRequestV2,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+POST,/oneway/{deviceId}/twoway/{deviceId},Internal / System APIs,RpcV2Controller,handleTwoWayDeviceRPCRequestV2,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/oneway/{deviceId}/persistent/{rpcId},Internal / System APIs,RpcV2Controller,getPersistedRpc,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",device.service.ts
+GET,/oneway/{deviceId}/persistent/device/{deviceId},Internal / System APIs,RpcV2Controller,getPersistedRpcByDevice,hasAnyAuthority('TENANT_ADMIN'),
+DELETE,/oneway/{deviceId}/persistent/{rpcId},Internal / System APIs,RpcV2Controller,deleteRpc,hasAnyAuthority('TENANT_ADMIN'),
+POST,/,Rule Engine,RuleEngineController,handleRuleEngineRequestForUser,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')","device.service.ts, event.service.ts, entity-view.service.ts, asset.service.ts, device-profile.service.ts, entity.service.ts, dashboard.service.ts, edge.service.ts, auth.service.ts"
+POST,/{entityType}/{entityId},Rule Engine,RuleEngineController,handleRuleEngineRequestForEntity,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')","calculated-fields.service.ts, api-key.service.ts, resource.service.ts, queue.service.ts, notification.service.ts, component-descriptor.service.ts, edge.service.ts, widget.service.ts, rule-chain.service.ts, customer.service.ts, asset.service.ts, alarm.service.ts, usage-info.service.ts, dashboard.service.ts, domain.service.ts, user.service.ts, device.service.ts, tenant.service.ts, entity-view.service.ts, entity-relation.service.ts, asset-profile.service.ts, image.service.ts, ota-package.service.ts, device-profile.service.ts, tenant-profile.service.ts"
+POST,/{entityType}/{entityId}/{timeout},Rule Engine,RuleEngineController,handleRuleEngineRequestForEntityWithTimeout,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')","trendz-settings.service.ts, audit-log.service.ts, user-settings.service.ts, calculated-fields.service.ts, entity.service.ts, api-key.service.ts, resource.service.ts, ai-model.service.ts, queue.service.ts, notification.service.ts, component-descriptor.service.ts, edge.service.ts, widget.service.ts, rule-chain.service.ts, customer.service.ts, asset.service.ts, alarm-rules.service.ts, alarm.service.ts, dashboard.service.ts, domain.service.ts, user.service.ts, device.service.ts, tenant.service.ts, entity-view.service.ts, mobile-app.service.ts, oauth2.service.ts, admin.service.ts, entity-relation.service.ts, asset-profile.service.ts, ui-settings.service.ts, auth.service.ts, image.service.ts, ota-package.service.ts, two-factor-authentication.service.ts, device-profile.service.ts, tenant-profile.service.ts"
+POST,/{entityType}/{entityId}/{queueName}/{timeout},Rule Engine,RuleEngineController,handleRuleEngineRequestForEntityWithQueueAndTimeout,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')","user-settings.service.ts, calculated-fields.service.ts, entity.service.ts, api-key.service.ts, resource.service.ts, ai-model.service.ts, mobile-application.service.ts, queue.service.ts, notification.service.ts, edge.service.ts, widget.service.ts, event.service.ts, rule-chain.service.ts, customer.service.ts, asset.service.ts, alarm-rules.service.ts, alarm.service.ts, dashboard.service.ts, domain.service.ts, user.service.ts, device.service.ts, tenant.service.ts, entity-view.service.ts, mobile-app.service.ts, oauth2.service.ts, admin.service.ts, entity-relation.service.ts, asset-profile.service.ts, auth.service.ts, alarm-comment.service.ts, image.service.ts, ota-package.service.ts, two-factor-authentication.service.ts, device-profile.service.ts, entities-version-control.service.ts, tenant-profile.service.ts"
+POST,/api/noauth/oauth2Clients,Admin / Settings,OAuth2Controller,getOAuth2Clients,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",
+POST,/api/oauth2/client,Admin / Settings,OAuth2Controller,saveOAuth2Client,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",oauth2.service.ts
+GET,/api/oauth2/client/infos,Admin / Settings,OAuth2Controller,findOAuth2ClientInfos,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",
+GET,/api/oauth2/client/infos,Admin / Settings,OAuth2Controller,findTenantOAuth2ClientInfosByIdsV1,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",
+GET,/api/oauth2/client/list,Admin / Settings,OAuth2Controller,findTenantOAuth2ClientInfosByIds,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')","entity.service.ts, oauth2.service.ts"
+GET,/api/oauth2/client/{id},Admin / Settings,OAuth2Controller,getOAuth2ClientById,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",oauth2.service.ts
+DELETE,/api/oauth2/client/{id},Admin / Settings,OAuth2Controller,deleteOauth2Client,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",oauth2.service.ts
+GET,/api/oauth2/loginProcessingUrl,Admin / Settings,OAuth2Controller,getLoginProcessingUrl,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')","oauth2.service.ts, admin.service.ts"
+GET,/api/widgetType/{widgetTypeId},Dashboard / Widgets,WidgetTypeController,getWidgetTypeById,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')","entity.service.ts, widget.service.ts"
+GET,/api/widgetTypeInfo/{widgetTypeId},Dashboard / Widgets,WidgetTypeController,getWidgetTypeInfoById,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",widget.service.ts
+POST,/api/widgetType,Dashboard / Widgets,WidgetTypeController,saveWidgetType,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",widget.service.ts
+DELETE,/api/widgetType/{widgetTypeId},Dashboard / Widgets,WidgetTypeController,deleteWidgetType,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",widget.service.ts
+GET,/api/widgetTypes,Dashboard / Widgets,WidgetTypeController,getWidgetTypes,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')","entity.service.ts, widget.service.ts"
+GET,/api/widgetTypes,Dashboard / Widgets,WidgetTypeController,getBundleWidgetTypesByBundleAlias,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/widgetTypes,Dashboard / Widgets,WidgetTypeController,getBundleWidgetTypesV1,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/widgetsBundle/{widgetsBundleId}/widgetTypes,Dashboard / Widgets,WidgetTypeController,getBundleWidgetTypes,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",widget.service.ts
+GET,/api/widgetTypesDetails,Dashboard / Widgets,WidgetTypeController,getBundleWidgetTypesDetailsByBundleAlias,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/widgetTypesDetails,Dashboard / Widgets,WidgetTypeController,getBundleWidgetTypesDetails,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",
+GET,/api/widgetTypeFqns,Dashboard / Widgets,WidgetTypeController,getBundleWidgetTypeFqns,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",widget.service.ts
+GET,/api/widgetTypesInfos,Dashboard / Widgets,WidgetTypeController,getBundleWidgetTypesInfosByBundleAlias,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/widgetTypesInfos,Dashboard / Widgets,WidgetTypeController,getBundleWidgetTypesInfos,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/widgetType,Dashboard / Widgets,WidgetTypeController,getWidgetTypeByBundleAliasAndTypeAlias,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",widget.service.ts
+GET,/api/widgetType,Dashboard / Widgets,WidgetTypeController,getWidgetType,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')","entity.service.ts, widget.service.ts"
+POST,/api/notification/rule,Notifications,NotificationRuleController,saveNotificationRule,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",notification.service.ts
+GET,/api/notification/rule/{id},Notifications,NotificationRuleController,getNotificationRuleById,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",notification.service.ts
+GET,/api/notification/rules,Notifications,NotificationRuleController,getNotificationRules,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')","entity.service.ts, notification.service.ts"
+DELETE,/api/notification/rule/{id},Notifications,NotificationRuleController,deleteNotificationRule,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",notification.service.ts
+POST,/api/calculatedField,Internal / System APIs,CalculatedFieldController,saveCalculatedField,hasAnyAuthority('TENANT_ADMIN'),calculated-fields.service.ts
+GET,/api/calculatedField/{calculatedFieldId},Internal / System APIs,CalculatedFieldController,getCalculatedFieldById,hasAnyAuthority('TENANT_ADMIN'),calculated-fields.service.ts
+GET,/api/{entityType}/{entityId}/calculatedFields,Internal / System APIs,CalculatedFieldController,getCalculatedFieldsByEntityIdV1,hasAnyAuthority('TENANT_ADMIN'),
+GET,/api/calculatedField/{entityType}/{entityId},Internal / System APIs,CalculatedFieldController,getCalculatedFieldsByEntityId,hasAnyAuthority('TENANT_ADMIN'),calculated-fields.service.ts
+GET,/api/calculatedFields,Internal / System APIs,CalculatedFieldController,getCalculatedFields,hasAnyAuthority('TENANT_ADMIN'),calculated-fields.service.ts
+GET,/api/calculatedFields/names,Internal / System APIs,CalculatedFieldController,getCalculatedFieldNames,hasAuthority('TENANT_ADMIN'),calculated-fields.service.ts
+DELETE,/api/calculatedField/{calculatedFieldId},Internal / System APIs,CalculatedFieldController,deleteCalculatedField,hasAnyAuthority('TENANT_ADMIN'),calculated-fields.service.ts
+GET,/api/calculatedField/{calculatedFieldId}/debug,Internal / System APIs,CalculatedFieldController,getLatestCalculatedFieldDebugEvent,hasAuthority('TENANT_ADMIN'),calculated-fields.service.ts
+POST,/api/calculatedField/testScript,Internal / System APIs,CalculatedFieldController,testCalculatedFieldScript,hasAuthority('TENANT_ADMIN'),calculated-fields.service.ts
+GET,/api/asset/{assetId},Asset Management,AssetController,getAssetById,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",asset.service.ts
+GET,/api/asset/info/{assetId},Asset Management,AssetController,getAssetInfoById,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",asset.service.ts
+POST,/api/asset,Asset Management,AssetController,saveAsset,hasAuthority('TENANT_ADMIN'),"asset.service.ts, asset-profile.service.ts, entity.service.ts"
+DELETE,/api/asset/{assetId},Asset Management,AssetController,deleteAsset,hasAuthority('TENANT_ADMIN'),"asset.service.ts, asset-profile.service.ts"
+POST,/api/customer/{customerId}/asset/{assetId},Asset Management,AssetController,assignAssetToCustomer,hasAuthority('TENANT_ADMIN'),asset.service.ts
+DELETE,/api/customer/asset/{assetId},Asset Management,AssetController,unassignAssetFromCustomer,hasAuthority('TENANT_ADMIN'),asset.service.ts
+POST,/api/customer/public/asset/{assetId},Asset Management,AssetController,assignAssetToPublicCustomer,hasAuthority('TENANT_ADMIN'),asset.service.ts
+GET,/api/tenant/assets,Asset Management,AssetController,getTenantAssets,hasAuthority('TENANT_ADMIN'),
+GET,/api/tenant/assetInfos,Asset Management,AssetController,getTenantAssetInfos,hasAuthority('TENANT_ADMIN'),"asset.service.ts, entity.service.ts"
+GET,/api/tenant/assets,Asset Management,AssetController,getTenantAsset,hasAuthority('TENANT_ADMIN'),"asset.service.ts, entity.service.ts"
+GET,/api/tenant/asset,Asset Management,AssetController,getTenantAssetByName,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/customer/{customerId}/assets,Asset Management,AssetController,getCustomerAssets,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/customer/{customerId}/assetInfos,Asset Management,AssetController,getCustomerAssetInfos,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')","asset.service.ts, entity.service.ts"
+GET,/api/assets,Asset Management,AssetController,getAssetsByIds,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",asset.service.ts
+POST,/api/assets,Asset Management,AssetController,findAssetsByQuery,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",asset.service.ts
+GET,/api/asset/types,Asset Management,AssetController,getAssetTypes,hasAuthority('TENANT_ADMIN'),asset.service.ts
+POST,/api/edge/{edgeId}/asset/{assetId},Asset Management,AssetController,assignAssetToEdge,hasAuthority('TENANT_ADMIN'),asset.service.ts
+DELETE,/api/edge/{edgeId}/asset/{assetId},Asset Management,AssetController,unassignAssetFromEdge,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",asset.service.ts
+GET,/api/edge/{edgeId}/assets,Asset Management,AssetController,getEdgeAssets,hasAnyAuthority('TENANT_ADMIN'),"asset.service.ts, entity.service.ts"
+POST,/api/asset/bulk_import,Asset Management,AssetController,processAssetBulkImport,hasAnyAuthority('TENANT_ADMIN'),asset.service.ts
+GET,/api/notifications,Notifications,NotificationController,getNotifications,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",notification.service.ts
+GET,/api/notifications/unread/count,Notifications,NotificationController,getUnreadNotificationsCount,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+PUT,/api/notification/{id}/read,Notifications,NotificationController,markNotificationAsRead,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",notification.service.ts
+PUT,/api/notifications/read,Notifications,NotificationController,markAllNotificationsAsRead,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",notification.service.ts
+DELETE,/api/notification/{id},Notifications,NotificationController,deleteNotification,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",notification.service.ts
+POST,/api/notification/request,Notifications,NotificationController,createNotificationRequest,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",notification.service.ts
+POST,/api/notification/entitiesLimitIncreaseRequest/{entityType},Notifications,NotificationController,sendEntitiesLimitIncreaseRequest,hasAnyAuthority('TENANT_ADMIN'),notification.service.ts
+POST,/api/notification/request/preview,Notifications,NotificationController,getNotificationRequestPreview,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",notification.service.ts
+GET,/api/notification/request/{id},Notifications,NotificationController,getNotificationRequestById,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",notification.service.ts
+GET,/api/notification/requests,Notifications,NotificationController,getNotificationRequests,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",notification.service.ts
+DELETE,/api/notification/request/{id},Notifications,NotificationController,deleteNotificationRequest,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",notification.service.ts
+POST,/api/notification/settings,Notifications,NotificationController,saveNotificationSettings,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",notification.service.ts
+GET,/api/notification/settings,Notifications,NotificationController,getNotificationSettings,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",notification.service.ts
+GET,/api/notification/deliveryMethods,Notifications,NotificationController,getAvailableDeliveryMethods,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",notification.service.ts
+POST,/api/notification/settings/user,Notifications,NotificationController,saveUserNotificationSettings,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",notification.service.ts
+GET,/api/notification/settings/user,Notifications,NotificationController,getUserNotificationSettings,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",notification.service.ts
+GET,/api/otaPackage/{otaPackageId}/download,OTA / Edge / Provisioning,OtaPackageController,downloadOtaPackage,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",ota-package.service.ts
+GET,/api/otaPackage/info/{otaPackageId},OTA / Edge / Provisioning,OtaPackageController,getOtaPackageInfoById,hasAnyAuthority('TENANT_ADMIN'),ota-package.service.ts
+GET,/api/otaPackage/{otaPackageId},OTA / Edge / Provisioning,OtaPackageController,getOtaPackageById,hasAnyAuthority('TENANT_ADMIN'),ota-package.service.ts
+POST,/api/otaPackage,OTA / Edge / Provisioning,OtaPackageController,saveOtaPackageInfo,hasAnyAuthority('TENANT_ADMIN'),ota-package.service.ts
+POST,/api/otaPackage/{otaPackageId},OTA / Edge / Provisioning,OtaPackageController,saveOtaPackageData,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",ota-package.service.ts
+GET,/api/otaPackages,OTA / Edge / Provisioning,OtaPackageController,getOtaPackages,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')","entity.service.ts, ota-package.service.ts"
+GET,/api/otaPackages/{deviceProfileId}/{type},OTA / Edge / Provisioning,OtaPackageController,getOtaPackagesByDeviceProfileAndType,hasAnyAuthority('TENANT_ADMIN'),ota-package.service.ts
+DELETE,/api/otaPackage/{otaPackageId},OTA / Edge / Provisioning,OtaPackageController,deleteOtaPackage,hasAnyAuthority('TENANT_ADMIN'),ota-package.service.ts
+GET,/api/admin/settings/{key},Admin / Settings,AdminController,getAdminSettings,hasAuthority('SYS_ADMIN'),admin.service.ts
+POST,/api/admin/settings,Admin / Settings,AdminController,saveAdminSettings,hasAuthority('SYS_ADMIN'),admin.service.ts
+GET,/api/admin/securitySettings,Admin / Settings,AdminController,getSecuritySettings,hasAuthority('SYS_ADMIN'),admin.service.ts
+POST,/api/admin/securitySettings,Admin / Settings,AdminController,saveSecuritySettings,hasAuthority('SYS_ADMIN'),admin.service.ts
+GET,/api/admin/jwtSettings,Admin / Settings,AdminController,getJwtSettings,hasAuthority('SYS_ADMIN'),admin.service.ts
+POST,/api/admin/jwtSettings,Admin / Settings,AdminController,saveJwtSettings,hasAuthority('SYS_ADMIN'),admin.service.ts
+POST,/api/admin/settings/testMail,Admin / Settings,AdminController,sendTestMail,hasAuthority('SYS_ADMIN'),admin.service.ts
+POST,/api/admin/settings/testSms,Admin / Settings,AdminController,sendTestSms,hasAuthority('TENANT_ADMIN'),admin.service.ts
+GET,/api/admin/repositorySettings,Admin / Settings,AdminController,getRepositorySettings,hasAuthority('TENANT_ADMIN'),admin.service.ts
+GET,/api/admin/repositorySettings/exists,Admin / Settings,AdminController,repositorySettingsExists,hasAuthority('TENANT_ADMIN'),
+GET,/api/admin/repositorySettings/info,Admin / Settings,AdminController,getRepositorySettingsInfo,hasAuthority('TENANT_ADMIN'),admin.service.ts
+POST,/api/admin/repositorySettings,Admin / Settings,AdminController,saveRepositorySettings,hasAuthority('TENANT_ADMIN'),admin.service.ts
+DELETE,/api/admin/repositorySettings,Admin / Settings,AdminController,deleteRepositorySettings,hasAuthority('TENANT_ADMIN'),admin.service.ts
+POST,/api/admin/repositorySettings/checkAccess,Admin / Settings,AdminController,checkRepositoryAccess,hasAuthority('TENANT_ADMIN'),admin.service.ts
+GET,/api/admin/autoCommitSettings,Admin / Settings,AdminController,getAutoCommitSettings,hasAuthority('TENANT_ADMIN'),admin.service.ts
+GET,/api/admin/autoCommitSettings/exists,Admin / Settings,AdminController,autoCommitSettingsExists,hasAuthority('TENANT_ADMIN'),admin.service.ts
+POST,/api/admin/autoCommitSettings,Admin / Settings,AdminController,saveAutoCommitSettings,hasAuthority('TENANT_ADMIN'),admin.service.ts
+DELETE,/api/admin/autoCommitSettings,Admin / Settings,AdminController,deleteAutoCommitSettings,hasAuthority('SYS_ADMIN'),admin.service.ts
+GET,/api/admin/updates,Admin / Settings,AdminController,checkUpdates,hasAuthority('SYS_ADMIN'),admin.service.ts
+GET,/api/admin/systemInfo,Admin / Settings,AdminController,getSystemInfo,hasAuthority('SYS_ADMIN'),
+GET,/api/admin/featuresInfo,Admin / Settings,AdminController,getFeaturesInfo,hasAnyAuthority('SYS_ADMIN'),admin.service.ts
+GET,/api/admin/mail/oauth2/loginProcessingUrl,Admin / Settings,AdminController,getMailProcessingUrl,hasAuthority('SYS_ADMIN'),admin.service.ts
+GET,/api/admin/mail/oauth2/authorize,Admin / Settings,AdminController,getMailOAuth2AuthorizationUrl,hasAuthority('SYS_ADMIN'),admin.service.ts
+GET,/api/admin/mail/oauth2/code,Admin / Settings,AdminController,handleMailOAuth2Callback,None,
+GET,/api/customer/{customerId},Tenant / Customer,CustomerController,getCustomerById,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",customer.service.ts
+GET,/api/customer/{customerId}/shortInfo,Tenant / Customer,CustomerController,getShortCustomerInfoById,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/customer/{customerId}/title,Tenant / Customer,CustomerController,getCustomerTitleById,hasAuthority('TENANT_ADMIN'),
+POST,/api/customer,Tenant / Customer,CustomerController,saveCustomer,hasAuthority('TENANT_ADMIN'),customer.service.ts
+DELETE,/api/customer/{customerId},Tenant / Customer,CustomerController,deleteCustomer,hasAuthority('TENANT_ADMIN'),customer.service.ts
+GET,/api/customers,Tenant / Customer,CustomerController,getCustomers,hasAuthority('TENANT_ADMIN'),"entity.service.ts, customer.service.ts"
+GET,/api/tenant/customers,Tenant / Customer,CustomerController,getTenantCustomer,hasAnyAuthority('TENANT_ADMIN'),
+GET,/api/customers,Tenant / Customer,CustomerController,getCustomersByIdsV1,hasAnyAuthority('TENANT_ADMIN'),
+GET,/api/customers/list,Tenant / Customer,CustomerController,getCustomersByIds,hasAnyAuthority('TENANT_ADMIN'),"entity.service.ts, customer.service.ts"
+POST,/api/domain,Admin / Settings,DomainController,saveDomain,hasAnyAuthority('SYS_ADMIN'),domain.service.ts
+PUT,/api/domain/{id}/oauth2Clients,Admin / Settings,DomainController,updateDomainOauth2Clients,hasAnyAuthority('SYS_ADMIN'),domain.service.ts
+GET,/api/domain/infos,Admin / Settings,DomainController,getDomainInfos,hasAnyAuthority('SYS_ADMIN'),
+GET,/api/domain/info/{id},Admin / Settings,DomainController,getDomainInfoById,hasAuthority('SYS_ADMIN'),domain.service.ts
+DELETE,/api/domain/{id},Admin / Settings,DomainController,deleteDomain,hasAuthority('SYS_ADMIN'),domain.service.ts
+GET,/api/dashboard/serverTime,Dashboard / Widgets,DashboardController,getServerTime,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",dashboard.service.ts
+GET,/api/dashboard/maxDatapointsLimit,Dashboard / Widgets,DashboardController,getMaxDatapointsLimit,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/dashboard/info/{dashboardId},Dashboard / Widgets,DashboardController,getDashboardInfoById,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",dashboard.service.ts
+GET,/api/dashboard/{dashboardId},Dashboard / Widgets,DashboardController,getDashboardById,hasAuthority('TENANT_ADMIN'),dashboard.service.ts
+POST,/api/dashboard,Dashboard / Widgets,DashboardController,saveDashboard,hasAuthority('TENANT_ADMIN'),dashboard.service.ts
+DELETE,/api/dashboard/{dashboardId},Dashboard / Widgets,DashboardController,deleteDashboard,hasAuthority('TENANT_ADMIN'),dashboard.service.ts
+POST,/api/customer/{customerId}/dashboard/{dashboardId},Dashboard / Widgets,DashboardController,assignDashboardToCustomer,hasAuthority('TENANT_ADMIN'),dashboard.service.ts
+DELETE,/api/customer/{customerId}/dashboard/{dashboardId},Dashboard / Widgets,DashboardController,unassignDashboardFromCustomer,hasAuthority('TENANT_ADMIN'),dashboard.service.ts
+POST,/api/dashboard/{dashboardId}/customers,Dashboard / Widgets,DashboardController,updateDashboardCustomers,hasAuthority('TENANT_ADMIN'),dashboard.service.ts
+POST,/api/dashboard/{dashboardId}/customers/add,Dashboard / Widgets,DashboardController,addDashboardCustomers,hasAuthority('TENANT_ADMIN'),dashboard.service.ts
+POST,/api/dashboard/{dashboardId}/customers/remove,Dashboard / Widgets,DashboardController,removeDashboardCustomers,hasAuthority('TENANT_ADMIN'),dashboard.service.ts
+POST,/api/customer/public/dashboard/{dashboardId},Dashboard / Widgets,DashboardController,assignDashboardToPublicCustomer,hasAuthority('TENANT_ADMIN'),dashboard.service.ts
+DELETE,/api/customer/public/dashboard/{dashboardId},Dashboard / Widgets,DashboardController,unassignDashboardFromPublicCustomer,hasAuthority('SYS_ADMIN'),dashboard.service.ts
+GET,/api/tenant/{tenantId}/dashboards,Dashboard / Widgets,DashboardController,getTenantDashboardsByTenantId,hasAuthority('TENANT_ADMIN'),dashboard.service.ts
+GET,/api/tenant/dashboards,Dashboard / Widgets,DashboardController,getTenantDashboards,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')","dashboard.service.ts, entity.service.ts"
+GET,/api/customer/{customerId}/dashboards,Dashboard / Widgets,DashboardController,getCustomerDashboards,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')","dashboard.service.ts, entity.service.ts"
+GET,/api/dashboard/home,Dashboard / Widgets,DashboardController,getHomeDashboard,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",dashboard.service.ts
+GET,/api/dashboard/home/info,Dashboard / Widgets,DashboardController,getHomeDashboardInfo,hasAuthority('TENANT_ADMIN'),
+GET,/api/tenant/dashboard/home/info,Dashboard / Widgets,DashboardController,getTenantHomeDashboardInfo,hasAuthority('TENANT_ADMIN'),dashboard.service.ts
+POST,/api/tenant/dashboard/home/info,Dashboard / Widgets,DashboardController,setTenantHomeDashboardInfo,hasAuthority('TENANT_ADMIN'),dashboard.service.ts
+POST,/api/edge/{edgeId}/dashboard/{dashboardId},Dashboard / Widgets,DashboardController,assignDashboardToEdge,hasAuthority('TENANT_ADMIN'),dashboard.service.ts
+DELETE,/api/edge/{edgeId}/dashboard/{dashboardId},Dashboard / Widgets,DashboardController,unassignDashboardFromEdge,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",dashboard.service.ts
+GET,/api/edge/{edgeId}/dashboards,Dashboard / Widgets,DashboardController,getEdgeDashboards,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')","dashboard.service.ts, entity.service.ts"
+GET,/api/dashboards,Dashboard / Widgets,DashboardController,getDashboardsByIdsV1,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/dashboards/list,Dashboard / Widgets,DashboardController,getDashboardsByIds,"hasAnyAuthority('TENANT_ADMIN', 'CUSTOMER_USER')",
+POST,/api/relation,Entity Relations,EntityRelationController,saveRelationV1,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",entity-relation.service.ts
+POST,/api/v2/relation,Entity Relations,EntityRelationController,saveRelation,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",entity-relation.service.ts
+DELETE,/api/relation,Entity Relations,EntityRelationController,deleteRelationV1,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",entity-relation.service.ts
+DELETE,/api/v2/relation,Entity Relations,EntityRelationController,deleteRelation,"hasAnyAuthority('SYS_ADMIN','TENANT_ADMIN', 'CUSTOMER_USER')",entity-relation.service.ts
+DELETE,/api/relations,Entity Relations,EntityRelationController,deleteRelations,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",entity-relation.service.ts
+GET,/api/relation,Entity Relations,EntityRelationController,getRelation,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",entity-relation.service.ts
+GET,/api/relations,Entity Relations,EntityRelationController,findByFrom,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",entity-relation.service.ts
+GET,/api/relations/from/{fromType}/{fromId},Entity Relations,EntityRelationController,findEntityRelationsByFrom,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/relations/info,Entity Relations,EntityRelationController,findInfoByFrom,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",entity-relation.service.ts
+GET,/api/relations/info/from/{fromType}/{fromId},Entity Relations,EntityRelationController,findEntityRelationInfosByFrom,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/relations,Entity Relations,EntityRelationController,findByFrom,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",entity-relation.service.ts
+GET,/api/relations/from/{fromType}/{fromId}/{relationType},Entity Relations,EntityRelationController,findEntityRelationsByFromAndRelationType,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/relations,Entity Relations,EntityRelationController,findByTo,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",entity-relation.service.ts
+GET,/api/relations/to/{toType}/{toId},Entity Relations,EntityRelationController,findEntityRelationsByTo,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/relations/info,Entity Relations,EntityRelationController,findInfoByTo,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",entity-relation.service.ts
+GET,/api/relations/info/to/{toType}/{toId},Entity Relations,EntityRelationController,findEntityRelationInfosByTo,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/relations,Entity Relations,EntityRelationController,findByTo,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",entity-relation.service.ts
+GET,/api/relations/to/{toType}/{toId}/{relationType},Entity Relations,EntityRelationController,findEntityRelationsByToAndRelationType,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+POST,/api/relations,Entity Relations,EntityRelationController,findEntityRelationsByQuery,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",entity-relation.service.ts
+POST,/api/relations/info,Entity Relations,EntityRelationController,findEntityRelationInfosByQuery,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",entity-relation.service.ts
+GET,/api/widgetsBundle/{widgetsBundleId},Dashboard / Widgets,WidgetsBundleController,getWidgetsBundleById,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",widget.service.ts
+POST,/api/widgetsBundle,Dashboard / Widgets,WidgetsBundleController,saveWidgetsBundle,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",widget.service.ts
+POST,/api/widgetsBundle/{widgetsBundleId}/widgetTypes,Dashboard / Widgets,WidgetsBundleController,updateWidgetsBundleWidgetTypes,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",widget.service.ts
+POST,/api/widgetsBundle/{widgetsBundleId}/widgetTypeFqns,Dashboard / Widgets,WidgetsBundleController,updateWidgetsBundleWidgetFqns,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",widget.service.ts
+DELETE,/api/widgetsBundle/{widgetsBundleId},Dashboard / Widgets,WidgetsBundleController,deleteWidgetsBundle,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",widget.service.ts
+GET,/api/widgetsBundles,Dashboard / Widgets,WidgetsBundleController,getWidgetsBundles,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')","entity.service.ts, widget.service.ts"
+GET,/api/widgetsBundles,Dashboard / Widgets,WidgetsBundleController,getWidgetsBundlesV1,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",widget.service.ts
+GET,/api/widgetsBundles/all,Dashboard / Widgets,WidgetsBundleController,getAllWidgetsBundles,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",widget.service.ts
+GET,/api/widgetsBundles,Dashboard / Widgets,WidgetsBundleController,getWidgetsBundlesByIds,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')","entity.service.ts, widget.service.ts"
+GET,/api/widgetsBundles/list,Dashboard / Widgets,WidgetsBundleController,getWidgetsBundlesList,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+POST,/api/entities/vc/version,Internal / System APIs,EntitiesVersionControlController,saveEntitiesVersion,hasAuthority('TENANT_ADMIN'),entities-version-control.service.ts
+GET,/api/entities/vc/version/{requestId}/status,Internal / System APIs,EntitiesVersionControlController,getVersionCreateRequestStatus,None,entities-version-control.service.ts
+GET,/api/entities/vc/version/{entityType}/{externalEntityUuid},Internal / System APIs,EntitiesVersionControlController,listEntityVersions,None,entities-version-control.service.ts
+GET,/api/entities/vc/version/{entityType},Internal / System APIs,EntitiesVersionControlController,listEntityTypeVersions,None,entities-version-control.service.ts
+GET,/api/entities/vc/version,Internal / System APIs,EntitiesVersionControlController,listVersions,None,entities-version-control.service.ts
+GET,/api/entities/vc/entity/{entityType}/{versionId},Internal / System APIs,EntitiesVersionControlController,listEntitiesAtVersion,None,entities-version-control.service.ts
+GET,/api/entities/vc/entity/{versionId},Internal / System APIs,EntitiesVersionControlController,listAllEntitiesAtVersion,None,
+GET,/api/entities/vc/info/{versionId}/{entityType}/{externalEntityUuid},Internal / System APIs,EntitiesVersionControlController,getEntityDataInfo,None,entities-version-control.service.ts
+GET,/api/entities/vc/diff/{entityType}/{internalEntityUuid},Internal / System APIs,EntitiesVersionControlController,compareEntityDataToVersion,None,entities-version-control.service.ts
+POST,/api/entities/vc/entity,Internal / System APIs,EntitiesVersionControlController,loadEntitiesVersion,None,entities-version-control.service.ts
+GET,/api/entities/vc/entity/{requestId}/status,Internal / System APIs,EntitiesVersionControlController,getVersionLoadRequestStatus,None,entities-version-control.service.ts
+GET,/api/entities/vc/branches,Internal / System APIs,EntitiesVersionControlController,listBranches,None,entities-version-control.service.ts
+POST,/api/notification/template,Notifications,NotificationTemplateController,saveNotificationTemplate,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",notification.service.ts
+GET,/api/notification/template/{id},Notifications,NotificationTemplateController,getNotificationTemplateById,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",notification.service.ts
+GET,/api/notification/templates,Notifications,NotificationTemplateController,getNotificationTemplates,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')","entity.service.ts, notification.service.ts"
+DELETE,/api/notification/template/{id},Notifications,NotificationTemplateController,deleteNotificationTemplateById,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",notification.service.ts
+GET,/api/notification/slack/conversations,Notifications,NotificationTemplateController,listSlackConversations,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN')",notification.service.ts
+GET,/api/system/info,Admin / Settings,SystemInfoController,getSystemVersionInfo,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",
+GET,/api/system/params,Admin / Settings,SystemInfoController,getSystemParams,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",auth.service.ts
+GET,/api/2fa/account/settings,Authentication & Authorization,TwoFactorAuthConfigController,getAccountTwoFaSettings,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER', 'MFA_CONFIGURATION_TOKEN')",two-factor-authentication.service.ts
+POST,/api/2fa/account/config/generate,Authentication & Authorization,TwoFactorAuthConfigController,generateTwoFaAccountConfig,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER', 'MFA_CONFIGURATION_TOKEN')",two-factor-authentication.service.ts
+POST,/api/2fa/account/config/submit,Authentication & Authorization,TwoFactorAuthConfigController,submitTwoFaAccountConfig,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER', 'MFA_CONFIGURATION_TOKEN')",two-factor-authentication.service.ts
+POST,/api/2fa/account/config,Authentication & Authorization,TwoFactorAuthConfigController,verifyAndSaveTwoFaAccountConfig,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER', 'MFA_CONFIGURATION_TOKEN')",two-factor-authentication.service.ts
+PUT,/api/2fa/account/config,Authentication & Authorization,TwoFactorAuthConfigController,updateTwoFaAccountConfig,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",two-factor-authentication.service.ts
+DELETE,/api/2fa/account/config,Authentication & Authorization,TwoFactorAuthConfigController,deleteTwoFaAccountConfig,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER')",two-factor-authentication.service.ts
+GET,/api/2fa/providers,Authentication & Authorization,TwoFactorAuthConfigController,getAvailableTwoFaProviderTypes,"hasAnyAuthority('SYS_ADMIN', 'TENANT_ADMIN', 'CUSTOMER_USER', 'MFA_CONFIGURATION_TOKEN')","auth.service.ts, two-factor-authentication.service.ts"
+GET,/api/2fa/settings,Authentication & Authorization,TwoFactorAuthConfigController,getPlatformTwoFaSettings,hasAnyAuthority('SYS_ADMIN'),two-factor-authentication.service.ts
+POST,/api/2fa/settings,Authentication & Authorization,TwoFactorAuthConfigController,savePlatformTwoFaSettings,hasAnyAuthority('SYS_ADMIN'),two-factor-authentication.service.ts
+GET,/api/usage,Admin / Settings,UsageInfoController,getTenantUsageInfo,hasAuthority('TENANT_ADMIN'),usage-info.service.ts
+GET,/api/v1/{deviceToken}/attributes,OTA / Edge / Provisioning,DeviceApiController,getDeviceAttributes,None,
+POST,/api/v1/{deviceToken}/attributes,OTA / Edge / Provisioning,DeviceApiController,postDeviceAttributes,None,
+POST,/api/v1/{deviceToken}/telemetry,OTA / Edge / Provisioning,DeviceApiController,postTelemetry,None,
+POST,/api/v1/{deviceToken}/claim,OTA / Edge / Provisioning,DeviceApiController,saveClaimingInfo,None,
+GET,/api/v1/{deviceToken}/rpc,OTA / Edge / Provisioning,DeviceApiController,subscribeToCommands,None,
+POST,/api/v1/{deviceToken}/rpc/{requestId},OTA / Edge / Provisioning,DeviceApiController,replyToCommand,None,
+POST,/api/v1/{deviceToken}/rpc,OTA / Edge / Provisioning,DeviceApiController,postRpcRequest,None,
+GET,/api/v1/{deviceToken}/attributes/updates,OTA / Edge / Provisioning,DeviceApiController,subscribeToAttributes,None,
+GET,/api/v1/{deviceToken}/firmware,OTA / Edge / Provisioning,DeviceApiController,getFirmware,None,
+GET,/api/v1/{deviceToken}/software,OTA / Edge / Provisioning,DeviceApiController,getSoftware,None,
+POST,/api/v1/provision,OTA / Edge / Provisioning,DeviceApiController,provisionDevice,None,
+GET,/api/edqs/ready,Internal / System APIs,EdqsController,isReady,None,
