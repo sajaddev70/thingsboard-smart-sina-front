@@ -1,0 +1,52 @@
+
+> thingsboard-smart-sina-front@0.1.0 dev
+> next dev --webpack
+
+▲ Next.js 16.2.7 (webpack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+- Environments: .env
+✓ Ready in 526ms
+ ○ (pwa) PWA support is disabled.
+
+○ Compiling /login ...
+ GET /login 200 in 13.6s (next.js: 13.1s, application-code: 541ms)
+ GET /login 200 in 65ms (next.js: 18ms, application-code: 47ms)
+ GET /admin/inspector 200 in 1634ms (next.js: 1252ms, application-code: 383ms)
+ GET /api/logs/list?limit=100 500 in 925ms (next.js: 816ms, application-code: 109ms)
+[browser] Uncaught TypeError: logs?.map is not a function
+    at NetworkInspector (app/admin/inspector/page.tsx:32:20)
+  30 |         ) : (
+  31 |           <div className="divide-y dark:divide-gray-800">
+> 32 |             {logs?.map((log: any) => (
+     |                    ^
+  33 |               <button
+  34 |                 key={log.id}
+  35 |                 onClick={() => setSelectedLog(log)}
+ GET /login 200 in 1062ms (next.js: 741ms, application-code: 321ms)
+ GET /admin/inspector 200 in 632ms (next.js: 456ms, application-code: 176ms)
+ GET /api/logs/list?limit=100 500 in 662ms (next.js: 606ms, application-code: 56ms)
+ GET /login 200 in 649ms (next.js: 230ms, application-code: 419ms)
+ GET /admin/inspector 200 in 1015ms (next.js: 744ms, application-code: 271ms)
+ GET /api/logs/list?limit=100 500 in 1000ms (next.js: 892ms, application-code: 109ms)
+ GET / 200 in 1632ms (next.js: 1394ms, application-code: 239ms)
+ GET /login 200 in 48ms (next.js: 16ms, application-code: 32ms)
+ GET /login 200 in 145ms (next.js: 3ms, application-code: 142ms)
+ GET / 200 in 49ms (next.js: 3ms, application-code: 46ms)
+ GET /login 200 in 40ms (next.js: 3ms, application-code: 38ms)
+ GET /login 200 in 659ms (next.js: 244ms, application-code: 415ms)
+ GET /admin/inspector 200 in 1879ms (next.js: 1613ms, application-code: 266ms)
+ GET /api/logs/list?limit=100 500 in 600ms (next.js: 531ms, application-code: 69ms)
+ GET /login 200 in 345ms (next.js: 73ms, application-code: 271ms)
+ GET / 200 in 696ms (next.js: 497ms, application-code: 200ms)
+ GET /login 200 in 59ms (next.js: 24ms, application-code: 35ms)
+ GET /login 200 in 142ms (next.js: 5ms, application-code: 137ms)
+ GET / 200 in 52ms (next.js: 2ms, application-code: 50ms)
+ GET /login 200 in 35ms (next.js: 3ms, application-code: 31ms)
+ GET /login 200 in 666ms (next.js: 239ms, application-code: 427ms)
+ GET /login 200 in 63ms (next.js: 16ms, application-code: 47ms)
+ GET /admin/inspector 200 in 1153ms (next.js: 816ms, application-code: 337ms)
+ GET /api/logs/list?limit=100 500 in 609ms (next.js: 545ms, application-code: 64ms)
+ GET /admin/inspector 200 in 56ms (next.js: 15ms, application-code: 41ms)
+ GET / 200 in 804ms (next.js: 512ms, application-code: 292ms)
+ GET /login 200 in 42ms (next.js: 15ms, application-code: 26ms)

@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ApiLog {
+  id            String   @id @default(uuid())
+  correlationId String?
+  method        String
+  endpoint      String
+  fullUrl       String
+  headers       Json
+  params        Json?
+  requestBody   Json?
+  responseBody  Json?
+  status        Int
+  duration      Int
+  retryCount    Int      @default(0)
+  errorMessage  String?
+  errorDetails  Json?
+  curl          String
+  timestamp     DateTime @default(now())
+
+  @@index([timestamp])
+  @@index([status])
+  @@index([method])
+}
+
+model UserPreference {
+  id        String   @id @default(uuid())
+  userId    String   @unique
+  theme     String   @default("light")
+  language  String   @default("fa")
+  settings  Json?
+  updatedAt DateTime @updatedAt
+}
+
+model LocalSetting {
+  key   String @id
+  value Json
+}
