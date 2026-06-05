@@ -50,3 +50,34 @@
  GET /admin/inspector 200 in 56ms (next.js: 15ms, application-code: 41ms)
  GET / 200 in 804ms (next.js: 512ms, application-code: 292ms)
  GET /login 200 in 42ms (next.js: 15ms, application-code: 26ms)
+
+================================================================================
+🌐 API CALL: GET /api/tenant/devices
+📍 Full URL: http://localhost:8080/api/tenant/devices
+⏱️ Duration: 120ms | 🔢 Status: 200
+🔗 Correlation ID: test-uuid
+----------------------------------------
+📝 Request Headers: {
+  "X-Authorization": "Bearer test"
+}
+🔍 Query Params: {
+  "pageSize": 10
+}
+----------------------------------------
+✅ Response Body: {
+  "data": []
+}
+----------------------------------------
+💻 cURL Command:
+[36mcurl -X GET "http://localhost:8080/api/tenant/devices" -H "X-Authorization: Bearer test"[0m
+================================================================================
+
+⚠️ DB Logging failed (skipping):
+Invalid `prisma.apiLog.create()` invocation:
+
+
+Can't reach database server at `localhost:5432`
+
+Please make sure your database server is running at `localhost:5432`.
+ POST /api/logs 200 in 1811ms (next.js: 1609ms, application-code: 202ms)
+[?25h
