@@ -1,6 +1,6 @@
 
-> thingsboard-smart-sina-front@0.1.0 dev
-> next dev --webpack -p 3000
+> thingsboard-smart-sina-front@0.1.0 start
+> next start
 
 ⨯ Failed to start server
 Error: listen EADDRINUSE: address already in use :::3000
@@ -12,4 +12,3 @@ Error: listen EADDRINUSE: address already in use :::3000
   address: '::',
   port: 3000
 }
-[?25h

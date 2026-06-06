@@ -1,68 +1,19 @@
 
-> thingsboard-smart-sina-front@0.1.0 start
-> next start
+> thingsboard-smart-sina-front@0.1.0 dev
+> next dev
 
-▲ Next.js 16.2.7
-- Local:         http://localhost:3000
-- Network:       http://192.168.0.2:3000
-✓ Ready in 196ms
+⚠ Port 3000 is in use by an unknown process, using available port 3002 instead.
+▲ Next.js 16.2.7 (Turbopack)
+- Local:         http://localhost:3002
+- Network:       http://192.168.0.2:3002
+- Environments: .env
+✓ Ready in 733ms
+⨯ Another next dev server is already running.
 
-================================================================================
-🌐 API CALL: POST /api/auth/send-otp
-📍 Full URL: http://localhost:8080/api/auth/send-otp
-⏱️ Duration: 33ms | 🔢 Status: 0
-🔗 Correlation ID: 7eb2aada-148a-46e9-9e2f-cc2441e2d182
-----------------------------------------
-📝 Request Headers: {
-  "Accept": "application/json, text/plain, */*",
-  "Content-Type": "application/json"
-}
-📦 Request Body: "{\"mobile\":\"09123456789\"}"
-----------------------------------------
-✅ Response Body: undefined
-❌ Error Message: Network Error
-💾 Error Details: undefined
-----------------------------------------
-💻 cURL Command:
-[36mcurl -X POST "http://localhost:8080/api/auth/send-otp" -H "Accept: application/json, text/plain, */*" -H "Content-Type: application/json" -d '"{\"mobile\":\"09123456789\"}"'[0m
-================================================================================
+- Local:        http://localhost:3001
+- PID:          1184828
+- Dir:          /app
+- Log:          .next/dev/logs/next-development.log
 
-⚠️ DB Logging failed (skipping):
-Invalid `prisma.apiLog.create()` invocation:
-
-
-Can't reach database server at `localhost:5432`
-
-Please make sure your database server is running at `localhost:5432`.
-
-================================================================================
-🌐 API CALL: POST /api/auth/send-otp
-📍 Full URL: http://localhost:8080/api/auth/send-otp
-⏱️ Duration: 21ms | 🔢 Status: 200
-🔗 Correlation ID: f5162d94-6a5f-472c-a321-b3db3c2b2392
-----------------------------------------
-📝 Request Headers: {
-  "Accept": "application/json, text/plain, */*",
-  "Content-Type": "application/json"
-}
-📦 Request Body: "{\"mobile\":\"09123456789\"}"
-----------------------------------------
-✅ Response Body: {
-  "dataList": [],
-  "status": "SUCCESS",
-  "isHasError": false,
-  "message": null,
-  "totalCount": 0
-}
-----------------------------------------
-💻 cURL Command:
-[36mcurl -X POST "http://localhost:8080/api/auth/send-otp" -H "Accept: application/json, text/plain, */*" -H "Content-Type: application/json" -d '"{\"mobile\":\"09123456789\"}"'[0m
-================================================================================
-
-⚠️ DB Logging failed (skipping):
-Invalid `prisma.apiLog.create()` invocation:
-
-
-Can't reach database server at `localhost:5432`
-
-Please make sure your database server is running at `localhost:5432`.
+Run kill 1184828 to stop it.
+[?25h

@@ -3,6 +3,7 @@ import "./globals.css";
 import { vazirFont } from "@/presentation/styles/fonts";
 import { ThemeProvider } from "@/presentation/components/ThemeProvider";
 import { QueryProvider } from "@/presentation/components/QueryProvider";
+import { BottomNavigation } from "@/presentation/components/BottomNavigation";
 
 export const metadata: Metadata = {
   title: "ThingsBoard Smart Sina",
@@ -30,12 +31,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fa" dir="rtl" suppressHydrationWarning>
-      <body className={`${vazirFont.variable} font-vazir antialiased selection:bg-tg-blue/30 overflow-x-hidden`}>
+    <html lang="fa" dir="rtl" suppressHydrationWarning className="h-full">
+      <body className={`${vazirFont.variable} font-vazir antialiased selection:bg-tg-blue/30 overflow-x-hidden bg-gray-100 dark:bg-[#0e1621] h-full flex justify-center`}>
         <QueryProvider>
           <ThemeProvider>
-            <div className="min-h-screen bg-background text-foreground safe-area-top safe-area-bottom max-w-[600px] mx-auto shadow-2xl relative border-x border-gray-100 dark:border-gray-800">
-              {children}
+            <div className="w-full max-w-[600px] min-h-full bg-background text-foreground safe-area-top safe-area-bottom shadow-2xl relative border-x border-gray-200 dark:border-gray-800 flex flex-col overflow-hidden">
+              <main className="flex-1 overflow-y-auto pb-24">
+                {children}
+              </main>
+              <BottomNavigation />
             </div>
           </ThemeProvider>
         </QueryProvider>

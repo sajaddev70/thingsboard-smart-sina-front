@@ -12,13 +12,16 @@ export default function NetworkInspector() {
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [methodFilter, setMethodFilter] = useState<string>('all');
 
-  const { data: logs, isLoading } = useQuery<ApiLog[]>({
+  const { data: logs, isLoading, error: queryError } = useQuery<ApiLog[]>({
     queryKey: ['api-logs'],
     queryFn: async () => {
       const res = await fetch('/api/logs/list?limit=100');
-      return res.json();
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'خطای سرور');
+      return data;
     },
     refetchInterval: 3000,
+    retry: 1,
   });
 
   return (
@@ -61,9 +64,18 @@ export default function NetworkInspector() {
 
       <div className="flex-1 overflow-y-auto">
         {isLoading ? (
-          <div className="p-10 text-center text-tg-hint font-medium">در حال بارگذاری لاگ‌ها...</div>
-        ) : !Array.isArray(logs) ? (
-          <div className="p-10 text-center text-red-500 font-medium">خطا در دریافت لاگ‌ها</div>
+          <div className="p-10 text-center text-tg-hint font-medium animate-pulse">در حال بارگذاری لاگ‌ها...</div>
+        ) : queryError ? (
+          <div className="p-10 text-center space-y-3">
+             <div className="text-red-500 font-bold">{(queryError as Error).message}</div>
+             <p className="text-[10px] text-tg-hint leading-relaxed max-w-[250px] mx-auto">
+                این ویژگی نیاز به اتصال فعال به دیتابیس PostgreSQL دارد. لطفا تنظیمات DATABASE_URL را در فایل .env بررسی کنید.
+             </p>
+          </div>
+        ) : !Array.isArray(logs) || logs.length === 0 ? (
+          <div className="p-20 text-center text-tg-hint font-medium">
+             هیچ لاگی یافت نشد
+          </div>
         ) : (
           <div className="divide-y dark:divide-gray-800">
             {logs
@@ -117,8 +129,8 @@ export default function NetworkInspector() {
             exit={{ y: '100%' }}
             className="fixed inset-0 z-50 bg-white dark:bg-[#1c1c1d] flex flex-col"
           >
-            <header className="p-4 border-b dark:border-gray-800 flex items-center justify-between">
-              <span className="font-bold">جزئیات ریکوئست</span>
+            <header className="p-4 border-b dark:border-gray-800 flex items-center justify-between sticky top-0 bg-white dark:bg-[#1c1c1d] z-10">
+              <span className="font-bold">جزئیات درخواست</span>
               <button onClick={() => setSelectedLog(null)} className="text-tg-blue font-medium">بستن</button>
             </header>
             <div className="flex-1 overflow-y-auto p-4 space-y-6 text-left" dir="ltr">
@@ -131,17 +143,17 @@ export default function NetworkInspector() {
 
               <div className="grid grid-cols-2 gap-4 text-right" dir="rtl">
                 <div>
-                  <h3 className="text-xs font-bold text-tg-hint mb-1">متد</h3>
+                  <h3 className="text-xs font-bold text-tg-hint mb-1">روش (Method)</h3>
                   <div className="font-mono text-sm">{selectedLog.method}</div>
                 </div>
                 <div>
-                  <h3 className="text-xs font-bold text-tg-hint mb-1">کد وضعیت</h3>
+                  <h3 className="text-xs font-bold text-tg-hint mb-1">کد وضعیت (Status)</h3>
                   <div className="font-mono text-sm">{selectedLog.status}</div>
                 </div>
               </div>
 
               <div className="text-right" dir="rtl">
-                <h3 className="text-xs font-bold text-tg-hint mb-2">متن پاسخ (Response)</h3>
+                <h3 className="text-xs font-bold text-tg-hint mb-2">محتوای پاسخ (Response)</h3>
                 <pre className="bg-gray-100 dark:bg-gray-900 p-3 rounded-lg text-[10px] overflow-x-auto font-mono text-left" dir="ltr">
                   {JSON.stringify(selectedLog.responseBody, null, 2)}
                 </pre>
