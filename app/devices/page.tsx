@@ -5,11 +5,12 @@ import apiClient from '@/infrastructure/api/client';
 import { Icons } from '@/presentation/components/icons';
 import { Skeleton } from '@/presentation/components/skeleton/Skeleton';
 import { useRouter } from 'next/navigation';
+import { Device } from '@/domain/models/device';
 
 export default function DevicesPage() {
   const router = useRouter();
 
-  const { data: devices, isLoading } = useQuery({
+  const { data: devices, isLoading } = useQuery<{ data: Device[] }>({
     queryKey: ['tenant-devices'],
     queryFn: async () => {
       const { data } = await apiClient.get('/api/tenant/deviceInfos?pageSize=20&page=0');
@@ -35,7 +36,7 @@ export default function DevicesPage() {
             </div>
           ))
         ) : (
-          devices?.data?.map((device: any) => (
+          devices?.data?.map((device) => (
             <button
               key={device.id.id}
               className="w-full bg-white dark:bg-[#1c1c1d] p-4 rounded-2xl text-right flex items-center justify-between border border-gray-100 dark:border-gray-800 active:bg-gray-50 transition-colors"

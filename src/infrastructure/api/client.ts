@@ -1,8 +1,16 @@
-import axios, { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig, AxiosError } from 'axios';
+import { useAuthStore } from '@/application/auth/useAuthStore';
+import { authService } from '@/application/auth/authService';
 
 export interface ApiRequestMetadata {
   startTime: number;
   correlationId: string;
+}
+
+declare module 'axios' {
+  export interface InternalAxiosRequestConfig {
+    metadata?: ApiRequestMetadata;
+  }
 }
 
 const apiClient: AxiosInstance = axios.create({
@@ -22,7 +30,8 @@ const getCurl = (config: AxiosRequestConfig) => {
   // Headers
   const headers = { ...config.headers };
   Object.entries(headers).forEach(([key, value]) => {
-    if (value && key !== 'common' && key !== 'delete' && key !== 'get' && key !== 'head' && key !== 'post' && key !== 'put' && key !== 'patch') {
+    const skipHeaders = ['common', 'delete', 'get', 'head', 'post', 'put', 'patch'];
+    if (value && !skipHeaders.includes(key.toLowerCase())) {
         curl += ` -H "${key}: ${value}"`;
     }
   });
@@ -38,23 +47,47 @@ const getCurl = (config: AxiosRequestConfig) => {
 apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
   const correlationId = crypto.randomUUID();
   const startTime = Date.now();
-  (config as any).metadata = { startTime, correlationId };
+  config.metadata = { startTime, correlationId };
 
   const token = typeof window !== 'undefined' ? localStorage.getItem('jwt_token') : null;
   if (token) {
+    // Both standard Authorization and ThingsBoard legacy X-Authorization for maximum compatibility
+    config.headers['Authorization'] = `Bearer ${token}`;
     config.headers['X-Authorization'] = `Bearer ${token}`;
   }
 
   return config;
 });
 
+let isRefreshing = false;
+
+interface FailedRequest {
+  resolve: (token: string | null) => void;
+  reject: (error: any) => void;
+}
+
+let failedQueue: FailedRequest[] = [];
+
+const processQueue = (error: any, token: string | null = null) => {
+  failedQueue.forEach((prom) => {
+    if (error) {
+      prom.reject(error);
+    } else {
+      prom.resolve(token);
+    }
+  });
+
+  failedQueue = [];
+};
+
 apiClient.interceptors.response.use(
   async (response) => {
-    const metadata = (response.config as any).metadata as ApiRequestMetadata;
-    const duration = Date.now() - metadata.startTime;
+    const metadata = response.config.metadata;
+    const duration = metadata ? Date.now() - metadata.startTime : 0;
+    const correlationId = metadata?.correlationId;
 
     const logData = {
-      correlationId: metadata.correlationId,
+      correlationId,
       method: response.config.method?.toUpperCase() || 'GET',
       endpoint: response.config.url || '',
       fullUrl: `${response.config.baseURL || ''}${response.config.url}`,
@@ -72,14 +105,65 @@ apiClient.interceptors.response.use(
         method: 'POST',
         body: JSON.stringify(logData),
         headers: { 'Content-Type': 'application/json' },
-      }).catch(() => {}); // Silent catch for logger
+      }).catch(() => {});
     }
 
     return response;
   },
-  async (error) => {
-    const metadata = (error.config as any)?.metadata as ApiRequestMetadata;
+  async (error: AxiosError) => {
+    const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
+    const metadata = originalRequest?.metadata;
     const duration = metadata ? Date.now() - metadata.startTime : 0;
+
+    // Handle 401 Unauthorized for token refresh
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      if (isRefreshing) {
+        return new Promise((resolve, reject) => {
+          failedQueue.push({ resolve, reject });
+        })
+          .then((token) => {
+            originalRequest.headers['Authorization'] = `Bearer ${token}`;
+            originalRequest.headers['X-Authorization'] = `Bearer ${token}`;
+            return apiClient(originalRequest);
+          })
+          .catch((err) => {
+            return Promise.reject(err);
+          });
+      }
+
+      originalRequest._retry = true;
+      isRefreshing = true;
+
+      const refreshToken = useAuthStore.getState().refreshToken;
+
+      if (refreshToken) {
+        try {
+          const response = await authService.refreshToken(refreshToken);
+          const { token, refreshToken: newRefreshToken } = response.dataList[0];
+
+          if (token) {
+            useAuthStore.getState().setAuth(
+                useAuthStore.getState().user!,
+                token,
+                newRefreshToken || refreshToken
+            );
+
+            processQueue(null, token);
+            originalRequest.headers['Authorization'] = `Bearer ${token}`;
+            originalRequest.headers['X-Authorization'] = `Bearer ${token}`;
+            return apiClient(originalRequest);
+          }
+        } catch (refreshError) {
+          processQueue(refreshError, null);
+          useAuthStore.getState().logout();
+          return Promise.reject(refreshError);
+        } finally {
+          isRefreshing = false;
+        }
+      } else {
+        useAuthStore.getState().logout();
+      }
+    }
 
     if (error.config) {
         const logData = {

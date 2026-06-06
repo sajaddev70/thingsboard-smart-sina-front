@@ -4,14 +4,15 @@ import { useQuery } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import type { ApiLog } from '@prisma/client';
 
 export default function NetworkInspector() {
-  const [selectedLog, setSelectedLog] = useState<any>(null);
+  const [selectedLog, setSelectedLog] = useState<ApiLog | null>(null);
   const [filter, setFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [methodFilter, setMethodFilter] = useState<string>('all');
 
-  const { data: logs, isLoading } = useQuery({
+  const { data: logs, isLoading } = useQuery<ApiLog[]>({
     queryKey: ['api-logs'],
     queryFn: async () => {
       const res = await fetch('/api/logs/list?limit=100');
@@ -66,7 +67,7 @@ export default function NetworkInspector() {
         ) : (
           <div className="divide-y dark:divide-gray-800">
             {logs
-              .filter((log: any) => {
+              .filter((log) => {
                 const matchesSearch = filter === '' ||
                   log.endpoint.toLowerCase().includes(filter.toLowerCase()) ||
                   JSON.stringify(log.requestBody).toLowerCase().includes(filter.toLowerCase()) ||
@@ -81,7 +82,7 @@ export default function NetworkInspector() {
 
                 return matchesSearch && matchesStatus && matchesMethod;
               })
-              .map((log: any) => (
+              .map((log) => (
               <button
                 key={log.id}
                 onClick={() => setSelectedLog(log)}

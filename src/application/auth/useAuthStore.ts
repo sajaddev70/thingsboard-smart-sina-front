@@ -2,13 +2,14 @@
 
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { User } from '@/domain/models/auth';
 
 interface AuthState {
-  user: any | null;
+  user: User | null;
   token: string | null;
   refreshToken: string | null;
   isAuthenticated: boolean;
-  setAuth: (user: any, token: string, refreshToken: string) => void;
+  setAuth: (user: User, token: string, refreshToken: string) => void;
   logout: () => void;
 }
 

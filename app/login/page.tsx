@@ -6,76 +6,155 @@ import { Input } from '@/presentation/components/Input';
 import { Button } from '@/presentation/components/Button';
 import { authService } from '@/application/auth/authService';
 import { useAuthStore } from '@/application/auth/useAuthStore';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import axios from 'axios';
 
 export default function LoginPage() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [mobile, setMobile] = useState('');
+  const [otp, setOtp] = useState('');
+  const [step, setStep] = useState<'MOBILE' | 'OTP'>('MOBILE');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
-  const setAuth = useAuthStore((state) => state.setAuth);
   const router = useRouter();
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleSendOtp = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (mobile.length < 11) {
+        setError('شماره موبایل وارد شده صحیح نیست');
+        return;
+    }
+
+    setIsLoading(true);
+    setError('');
+
+    try {
+      const response = await authService.sendOtp(mobile);
+      if (response.isHasError) {
+          setError(response.message || 'خطا در ارسال کد تایید');
+      } else {
+          setStep('OTP');
+      }
+    } catch (err) {
+      const message = axios.isAxiosError(err) ? err.response?.data?.message : 'اختلال در برقراری ارتباط';
+      setError(message || 'اختلال در برقراری ارتباط');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleVerifyOtp = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
 
     try {
-      const tokens = await authService.login({ username, password });
-      // Set token temporarily to fetch user
-      localStorage.setItem('jwt_token', tokens.token);
-      const user = await authService.getCurrentUser();
+      const response = await authService.verifyOtp(mobile, otp);
+      if (response.isHasError || response.dataList.length === 0) {
+        setError(response.message || 'کد تایید اشتباه است');
+      } else {
+        const { token, refreshToken } = response.dataList[0];
+        localStorage.setItem('jwt_token', token);
+        if (refreshToken) localStorage.setItem('refresh_token', refreshToken);
 
-      setAuth(user, tokens.token, tokens.refreshToken);
-      router.push('/');
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'ورود ناموفق بود. لطفاً دوباره تلاش کنید.');
+        const userResponse = await authService.getCurrentUser();
+        const user = userResponse.dataList[0];
+
+        useAuthStore.getState().setAuth(user, token, refreshToken || '');
+        router.push('/');
+      }
+    } catch (err) {
+      const message = axios.isAxiosError(err) ? err.response?.data?.message : 'کد وارد شده اشتباه است';
+      setError(message || 'کد وارد شده اشتباه است');
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-6 space-y-8 max-w-md mx-auto">
+    <div className="flex flex-col items-center justify-center min-h-screen p-6 space-y-12 max-w-md mx-auto overflow-hidden">
       <motion.div
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        className="w-24 h-24 bg-tg-blue rounded-3xl flex items-center justify-center shadow-lg"
+        layoutId="logo"
+        className="w-24 h-24 bg-tg-blue rounded-[28px] flex items-center justify-center shadow-lg shadow-tg-blue/20"
       >
-        <span className="text-white text-4xl font-bold">TB</span>
+        <span className="text-white text-4xl font-bold tracking-tighter italic">TB</span>
       </motion.div>
 
-      <div className="text-center space-y-2">
-        <h1 className="text-2xl font-bold">تگز‌برد</h1>
-        <p className="text-tg-hint">برای ورود نام کاربری و رمز عبور خود را وارد کنید</p>
-      </div>
+      <AnimatePresence mode="wait">
+        {step === 'MOBILE' ? (
+          <motion.div
+            key="mobile-step"
+            initial={{ x: 50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -50, opacity: 0 }}
+            className="w-full space-y-8"
+          >
+            <div className="text-center space-y-2">
+              <h1 className="text-2xl font-bold">ورود به تگز‌برد</h1>
+              <p className="text-tg-hint">شماره موبایل خود را برای دریافت کد تایید وارد کنید</p>
+            </div>
 
-      <form onSubmit={handleLogin} className="w-full space-y-4">
-        <Input
-          label="نام کاربری"
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="example@thingsboard.org"
-          required
-        />
-        <Input
-          label="رمز عبور"
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="••••••••"
-          required
-          error={error}
-        />
-        <Button type="submit" isLoading={isLoading} className="mt-4">
-          ورود
-        </Button>
-      </form>
+            <form onSubmit={handleSendOtp} className="w-full space-y-4">
+              <Input
+                label="شماره موبایل"
+                type="tel"
+                value={mobile}
+                onChange={(e) => setMobile(e.target.value.replace(/[^0-9]/g, ''))}
+                placeholder="09123456789"
+                required
+                maxLength={11}
+              />
+              {error && <p className="text-xs text-red-500 px-1">{error}</p>}
+              <Button type="submit" isLoading={isLoading} className="mt-4 py-4 rounded-2xl">
+                ارسال کد تایید
+              </Button>
+            </form>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="otp-step"
+            initial={{ x: 50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: -50, opacity: 0 }}
+            className="w-full space-y-8"
+          >
+            <div className="text-center space-y-2">
+              <h1 className="text-2xl font-bold">کد تایید</h1>
+              <p className="text-tg-hint leading-relaxed">
+                کد ارسال شده به شماره <span className="text-tg-text font-bold tabular-nums" dir="ltr">{mobile}</span> را وارد کنید
+              </p>
+            </div>
 
-      <div className="text-sm text-tg-hint text-center">
-        فراموشی رمز عبور؟
+            <form onSubmit={handleVerifyOtp} className="w-full space-y-4">
+              <div className="flex justify-center gap-2" dir="ltr">
+                 <Input
+                    type="text"
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value.replace(/[^0-9]/g, ''))}
+                    placeholder="− − − −"
+                    className="text-center text-2xl tracking-[12px] font-bold"
+                    required
+                    maxLength={4}
+                    autoFocus
+                 />
+              </div>
+              {error && <p className="text-xs text-red-500 text-center">{error}</p>}
+              <Button type="submit" isLoading={isLoading} className="mt-4 py-4 rounded-2xl">
+                تایید و ورود
+              </Button>
+              <button
+                type="button"
+                onClick={() => setStep('MOBILE')}
+                className="w-full text-sm text-tg-blue font-medium py-2 active:opacity-60 transition-opacity"
+              >
+                تغییر شماره موبایل
+              </button>
+            </form>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div className="text-[10px] text-tg-hint text-center max-w-[200px]">
+        با ورود به برنامه، شما قوانین و مقررات تگز‌برد را می‌پذیرید.
       </div>
     </div>
   );
