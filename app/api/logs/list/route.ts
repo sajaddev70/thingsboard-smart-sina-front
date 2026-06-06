@@ -12,7 +12,8 @@ export async function GET(request: Request) {
     });
 
     return NextResponse.json(logs);
-  } catch (error) {
-    return NextResponse.json({ error: 'Failed to fetch logs' }, { status: 500 });
+  } catch (error: any) {
+    console.error('Fetch logs error:', error);
+    return NextResponse.json({ error: error.message || 'Failed to fetch logs' }, { status: 500 });
   }
 }

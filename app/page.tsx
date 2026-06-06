@@ -76,7 +76,7 @@ export default function Home() {
                   </div>
                   <span className="text-sm font-medium">وضعیت اتصال</span>
                 </div>
-                <span className="text-xs font-bold text-green-600 bg-green-50 dark:bg-green-500/10 px-2 py-1 rounded-md uppercase">Online</span>
+                <span className="text-xs font-bold text-green-600 bg-green-50 dark:bg-green-500/10 px-2 py-1 rounded-md">آنلاین</span>
              </div>
              <div className="p-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -85,26 +85,30 @@ export default function Home() {
                   </div>
                   <span className="text-sm font-medium">سطح دسترسی</span>
                 </div>
-                <span className="text-xs font-bold text-tg-hint">{user?.authority}</span>
+                <span className="text-xs font-bold text-tg-hint">
+                  {user?.authority === 'SYS_ADMIN' ? 'مدیر سیستم' :
+                   user?.authority === 'TENANT_ADMIN' ? 'مدیر مستأجر' :
+                   user?.authority === 'CUSTOMER_USER' ? 'کاربر مشتری' : user?.authority}
+                </span>
              </div>
           </div>
         </section>
       </main>
 
-      <nav className="fixed bottom-0 left-0 right-0 bg-white/80 dark:bg-[#1c1c1d]/80 backdrop-blur-lg border-t dark:border-gray-800 px-6 py-3 flex justify-between items-center z-40 safe-area-bottom">
-         <button className="text-tg-blue flex flex-col items-center gap-1">
+      <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[600px] bg-background/80 backdrop-blur-lg border-t border-gray-100 dark:border-gray-800 px-6 py-3 flex justify-between items-center z-40 safe-area-bottom">
+         <button onClick={() => router.push('/')} className="text-tg-blue flex flex-col items-center gap-1">
             <Icons.Dashboard size={22} />
             <span className="text-[10px] font-bold">خانه</span>
          </button>
-         <button className="text-tg-hint flex flex-col items-center gap-1 opacity-50">
+         <button onClick={() => router.push('/devices')} className="text-tg-hint flex flex-col items-center gap-1 active:text-tg-blue transition-colors">
             <Icons.Device size={22} />
             <span className="text-[10px] font-bold">دستگاه‌ها</span>
          </button>
-         <button className="text-tg-hint flex flex-col items-center gap-1 opacity-50">
+         <button onClick={() => router.push('/alarms')} className="text-tg-hint flex flex-col items-center gap-1 active:text-tg-blue transition-colors">
             <Icons.Alarm size={22} />
             <span className="text-[10px] font-bold">هشدارها</span>
          </button>
-         <button className="text-tg-hint flex flex-col items-center gap-1 opacity-50">
+         <button onClick={() => router.push('/settings')} className="text-tg-hint flex flex-col items-center gap-1 active:text-tg-blue transition-colors">
             <Icons.Settings size={22} />
             <span className="text-[10px] font-bold">تنظیمات</span>
          </button>

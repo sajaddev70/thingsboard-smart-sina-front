@@ -6,6 +6,7 @@ import { Icons } from '@/presentation/components/icons';
 import { Skeleton } from '@/presentation/components/skeleton/Skeleton';
 import { useRouter } from 'next/navigation';
 import { Device } from '@/domain/models/device';
+import { cn } from '@/lib/utils';
 
 export default function DevicesPage() {
   const router = useRouter();
@@ -51,7 +52,12 @@ export default function DevicesPage() {
                 </div>
               </div>
               <div className="flex flex-col items-end gap-1">
-                <span className="text-[10px] bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-bold uppercase">Active</span>
+                <span className={cn(
+                  "text-[10px] px-2 py-0.5 rounded-full font-bold",
+                  device.active ? "bg-green-100 text-green-700 dark:bg-green-500/10 dark:text-green-500" : "bg-gray-100 text-gray-700 dark:bg-gray-500/10 dark:text-gray-500"
+                )}>
+                  {device.active ? 'فعال' : 'غیرفعال'}
+                </span>
                 <Icons.ChevronLeft size={16} className="text-tg-hint opacity-30" />
               </div>
             </button>

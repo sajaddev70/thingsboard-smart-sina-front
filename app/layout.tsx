@@ -31,10 +31,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa" dir="rtl" suppressHydrationWarning>
-      <body className={`${vazirFont.variable} font-vazir antialiased selection:bg-tg-blue/30`}>
+      <body className={`${vazirFont.variable} font-vazir antialiased selection:bg-tg-blue/30 overflow-x-hidden`}>
         <QueryProvider>
           <ThemeProvider>
-            <div className="min-h-screen bg-background text-foreground safe-area-top safe-area-bottom">
+            <div className="min-h-screen bg-background text-foreground safe-area-top safe-area-bottom max-w-[600px] mx-auto shadow-2xl relative border-x border-gray-100 dark:border-gray-800">
               {children}
             </div>
           </ThemeProvider>

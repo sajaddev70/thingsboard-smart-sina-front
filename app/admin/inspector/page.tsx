@@ -24,8 +24,8 @@ export default function NetworkInspector() {
   return (
     <div className="flex flex-col h-screen bg-tg-secondary-bg overflow-hidden">
       <header className="p-4 bg-white dark:bg-[#1c1c1d] border-b dark:border-gray-800 shrink-0">
-        <h1 className="text-lg font-bold">Network Inspector</h1>
-        <p className="text-xs text-tg-hint">Real-time API monitoring</p>
+        <h1 className="text-lg font-bold">تحلیل‌گر شبکه</h1>
+        <p className="text-xs text-tg-hint">مانیتورینگ آنی APIها</p>
       </header>
 
       <div className="p-2 bg-white dark:bg-[#1c1c1d] border-b dark:border-gray-800 flex gap-2">
@@ -41,7 +41,7 @@ export default function NetworkInspector() {
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
         >
-          <option value="all">Status</option>
+          <option value="all">وضعیت</option>
           <option value="200">2xx</option>
           <option value="400">4xx</option>
           <option value="500">5xx</option>
@@ -51,7 +51,7 @@ export default function NetworkInspector() {
           value={methodFilter}
           onChange={(e) => setMethodFilter(e.target.value)}
         >
-          <option value="all">Method</option>
+          <option value="all">متد</option>
           <option value="GET">GET</option>
           <option value="POST">POST</option>
           <option value="PUT">PUT</option>
@@ -100,7 +100,7 @@ export default function NetworkInspector() {
                     <span className="truncate text-xs text-tg-hint">{log.endpoint}</span>
                   </div>
                   <div className="text-[10px] text-tg-hint mt-1">
-                    {new Date(log.timestamp).toLocaleTimeString('fa-IR')} • {log.duration}ms
+                    {new Date(log.timestamp).toLocaleTimeString('fa-IR')} • {log.duration} میلی‌ثانیه
                   </div>
                 </div>
               </button>
@@ -122,34 +122,34 @@ export default function NetworkInspector() {
               <button onClick={() => setSelectedLog(null)} className="text-tg-blue font-medium">بستن</button>
             </header>
             <div className="flex-1 overflow-y-auto p-4 space-y-6 text-left" dir="ltr">
-              <div>
-                <h3 className="text-xs font-bold text-tg-hint mb-2 uppercase">cURL</h3>
-                <div className="bg-gray-100 dark:bg-gray-900 p-3 rounded-lg text-[10px] break-all font-mono whitespace-pre-wrap">
+              <div className="text-right" dir="rtl">
+                <h3 className="text-xs font-bold text-tg-hint mb-2">دستور cURL</h3>
+                <div className="bg-gray-100 dark:bg-gray-900 p-3 rounded-lg text-[10px] break-all font-mono whitespace-pre-wrap text-left" dir="ltr">
                   {selectedLog.curl}
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4 text-right" dir="rtl">
                 <div>
-                  <h3 className="text-xs font-bold text-tg-hint mb-1 uppercase">Method</h3>
+                  <h3 className="text-xs font-bold text-tg-hint mb-1">متد</h3>
                   <div className="font-mono text-sm">{selectedLog.method}</div>
                 </div>
                 <div>
-                  <h3 className="text-xs font-bold text-tg-hint mb-1 uppercase">Status</h3>
+                  <h3 className="text-xs font-bold text-tg-hint mb-1">کد وضعیت</h3>
                   <div className="font-mono text-sm">{selectedLog.status}</div>
                 </div>
               </div>
 
-              <div>
-                <h3 className="text-xs font-bold text-tg-hint mb-2 uppercase">Response Body</h3>
-                <pre className="bg-gray-100 dark:bg-gray-900 p-3 rounded-lg text-[10px] overflow-x-auto font-mono">
+              <div className="text-right" dir="rtl">
+                <h3 className="text-xs font-bold text-tg-hint mb-2">متن پاسخ (Response)</h3>
+                <pre className="bg-gray-100 dark:bg-gray-900 p-3 rounded-lg text-[10px] overflow-x-auto font-mono text-left" dir="ltr">
                   {JSON.stringify(selectedLog.responseBody, null, 2)}
                 </pre>
               </div>
 
-              <div>
-                <h3 className="text-xs font-bold text-tg-hint mb-2 uppercase">Headers</h3>
-                <pre className="bg-gray-100 dark:bg-gray-900 p-3 rounded-lg text-[10px] overflow-x-auto font-mono">
+              <div className="text-right" dir="rtl">
+                <h3 className="text-xs font-bold text-tg-hint mb-2">هدرها (Headers)</h3>
+                <pre className="bg-gray-100 dark:bg-gray-900 p-3 rounded-lg text-[10px] overflow-x-auto font-mono text-left" dir="ltr">
                   {JSON.stringify(selectedLog.headers, null, 2)}
                 </pre>
               </div>

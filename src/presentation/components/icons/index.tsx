@@ -1,33 +1,27 @@
-import {
-  Smartphone,
-  Bell,
-  Building2,
-  LayoutDashboard,
-  LogOut,
-  Search,
-  Filter,
-  ChevronLeft,
-  MoreVertical,
-  Activity,
-  ShieldCheck,
-  Package,
-  Settings,
-  History
-} from 'lucide-react';
+import { LucideIcon, LayoutDashboard, Settings, Home, HardDrive, Bell, User, ChevronLeft, Search, BellOff, Info, LogOut, CheckCircle2, AlertTriangle, AlertCircle, Cpu, ShieldCheck, Box, History, Activity } from 'lucide-react';
 
 export const Icons = {
-  Device: Smartphone,
+  Home,
+  Devices: HardDrive,
+  Device: HardDrive,
+  Alarms: Bell,
   Alarm: Bell,
-  Asset: Building2,
-  Dashboard: LayoutDashboard,
-  Logout: LogOut,
-  Search,
-  Filter,
-  ChevronLeft,
-  More: MoreVertical,
-  Live: Activity,
-  Security: ShieldCheck,
-  OTA: Package,
   Settings,
-  History
+  User,
+  ChevronLeft,
+  Search,
+  BellOff,
+  Info,
+  Logout: LogOut,
+  Dashboard: LayoutDashboard,
+  CheckCircle: CheckCircle2,
+  AlertTriangle,
+  AlertCircle,
+  Cpu,
+  Security: ShieldCheck,
+  Asset: Box,
+  History,
+  Live: Activity,
 };
+
+export type Icon = LucideIcon;

@@ -4,10 +4,12 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/presentation/components/Input';
 import { Button } from '@/presentation/components/Button';
+import { OtpInput } from '@/presentation/components/OtpInput';
 import { authService } from '@/application/auth/authService';
 import { useAuthStore } from '@/application/auth/useAuthStore';
 import { motion, AnimatePresence } from 'framer-motion';
 import axios from 'axios';
+import { Icons } from '@/presentation/components/icons';
 
 export default function LoginPage() {
   const [mobile, setMobile] = useState('');
@@ -124,20 +126,18 @@ export default function LoginPage() {
               </p>
             </div>
 
-            <form onSubmit={handleVerifyOtp} className="w-full space-y-4">
-              <div className="flex justify-center gap-2" dir="ltr">
-                 <Input
-                    type="text"
-                    value={otp}
-                    onChange={(e) => setOtp(e.target.value.replace(/[^0-9]/g, ''))}
-                    placeholder="− − − −"
-                    className="text-center text-2xl tracking-[12px] font-bold"
-                    required
-                    maxLength={4}
-                    autoFocus
-                 />
-              </div>
-              {error && <p className="text-xs text-red-500 text-center">{error}</p>}
+            <form onSubmit={handleVerifyOtp} className="w-full space-y-8">
+              <OtpInput value={otp} onChange={setOtp} />
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex items-center justify-center gap-2 text-red-500 bg-red-500/10 py-3 rounded-xl"
+                >
+                  <Icons.Security size={16} />
+                  <span className="text-xs font-bold">{error}</span>
+                </motion.div>
+              )}
               <Button type="submit" isLoading={isLoading} className="mt-4 py-4 rounded-2xl">
                 تایید و ورود
               </Button>
